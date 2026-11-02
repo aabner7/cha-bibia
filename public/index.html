@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chá da Bibia</title>
+  <meta name="description" content="Convite para o chá da Bibia — 8 de dezembro de 2026, às 12h, em Belo Horizonte.">
+
+  <!-- Como o convite será enviado pelo WhatsApp, estas linhas
+       definem o título e o texto que aparecem na pré-visualização
+       do link dentro da conversa. -->
+  <meta property="og:title" content="Chá da Bibia">
+  <meta property="og:description" content="8 de dezembro de 2026, às 12h — venha celebrar com a gente!">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+
+  <link rel="stylesheet" href="css/tema.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <header class="capa">
+    <img class="ilustracao grande" src="img/chico-1.webp" width="900" height="840"
+         alt="Ilustração em aquarela do Chico, o cachorro da família, sorrindo">
+    <p class="subtitulo">Chico, o irmão mais velho, te convida para o</p>
+    <h1>Chá da Bibia</h1>
+  </header>
+
+  <main class="pagina">
+
+    <section class="cartao">
+      <p>
+        Com o coração cheio de alegria, convidamos você para celebrar
+        conosco a chegada da Beatriz.
+      </p>
+      <p>
+        Será uma tarde cheia de afeto, cercados das pessoas que a gente
+        ama, e que já amam a Beatriz.
+      </p>
+      <p>
+        Venha encher essa espera de carinho com a gente.
+      </p>
+    </section>
+
+    <section class="cartao" aria-labelledby="titulo-detalhes">
+      <h2 id="titulo-detalhes">Quando e onde</h2>
+      <ul class="detalhes">
+        <li>
+          <span class="rotulo">Data</span>
+          <span class="valor">
+            <strong>Terça-feira, 8 de dezembro de 2026</strong><br>
+            <span style="color: var(--cor-texto-suave); font-size: var(--tamanho-pequeno)">
+              Feriado em Belo Horizonte
+            </span>
+          </span>
+        </li>
+        <li>
+          <span class="rotulo">Horário</span>
+          <span class="valor"><strong>12h</strong></span>
+        </li>
+        <li>
+          <span class="rotulo">Local</span>
+          <span class="valor">
+            Rua Teodomiro Cruz, 175<br>
+            Novo São Lucas — Belo Horizonte / MG
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="cartao" aria-labelledby="titulo-contador">
+      <h2 id="titulo-contador">Falta pouco</h2>
+      <div class="contador" id="contador" aria-live="polite">
+        <div class="bloco">
+          <span class="numero" id="contador-dias">--</span>
+          <span class="unidade">dias</span>
+        </div>
+        <div class="bloco">
+          <span class="numero" id="contador-horas">--</span>
+          <span class="unidade">horas</span>
+        </div>
+        <div class="bloco">
+          <span class="numero" id="contador-minutos">--</span>
+          <span class="unidade">min</span>
+        </div>
+        <div class="bloco">
+          <span class="numero" id="contador-segundos">--</span>
+          <span class="unidade">seg</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cartao" aria-labelledby="titulo-mapa">
+      <h2 id="titulo-mapa">Como chegar</h2>
+      <iframe
+        class="mapa"
+        title="Mapa com a localização do evento"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Rua%20Teodomiro%20Cruz%2C%20175%2C%20Novo%20S%C3%A3o%20Lucas%2C%20Belo%20Horizonte%20-%20MG&output=embed"></iframe>
+      <p style="margin-bottom: 0">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Teodomiro%20Cruz%2C%20175%2C%20Novo%20S%C3%A3o%20Lucas%2C%20Belo%20Horizonte%20-%20MG"
+           target="_blank" rel="noopener">Abrir rota no Google Maps</a>
+      </p>
+    </section>
+
+    <section class="cartao">
+      <h2>Confirme sua presença</h2>
+      <p>
+        Para organizarmos a comida e o espaço com carinho, nos avise até
+        <strong>1º de dezembro</strong> se você vem e quantas pessoas virão com você.
+      </p>
+      <a class="botao" href="confirmar.html">Confirmar presença</a>
+      <a class="botao secundario" href="presentes.html">Ver a lista de presentes</a>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>Feito com carinho para a Beatriz 💛</p>
+  </footer>
+
+  <script src="js/evento.js"></script>
+  <script src="js/contador.js"></script>
+</body>
+</html>

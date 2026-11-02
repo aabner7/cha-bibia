@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lista de presentes — Chá da Bibia</title>
+  <meta name="description" content="Lista de presentes do chá da Bibia.">
+  <link rel="stylesheet" href="css/tema.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <header class="capa">
+    <img class="ilustracao pequena" src="img/chico-2.webp" width="739" height="900"
+         alt="Ilustração em aquarela do Chico com uma bolinha vermelha na boca">
+    <p class="subtitulo">Chá da Bibia</p>
+    <h1>Lista de presentes</h1>
+  </header>
+
+  <main class="pagina">
+
+    <div class="cartao">
+      <p>
+        Escolha o que quiser levar e marque aqui. Assim ninguém leva
+        a mesma coisa duas vezes.
+      </p>
+      <p class="presente-descricao" style="margin-bottom:0">
+        Os links são só sugestões de onde encontrar. Fique à vontade para
+        comprar onde preferir, ou levar algo parecido.
+      </p>
+    </div>
+
+    <p class="aviso ok" id="aviso-demonstracao" hidden>
+      <strong>Modo demonstração.</strong> O banco de dados ainda não foi ligado,
+      então nada é salvo de verdade: pode testar à vontade, e a lista volta
+      ao normal quando a página é atualizada.
+    </p>
+
+    <div id="lista-presentes">
+      <p class="carregando">Carregando a lista...</p>
+    </div>
+
+    <div class="cartao" id="bloco-desfazer" hidden>
+      <h2>Precisa desfazer?</h2>
+      <p>
+        Digite o código que você recebeu ao marcar o presente. Ele garante
+        que só você pode desfazer a sua escolha.
+      </p>
+      <p class="aviso" id="aviso-desfazer" role="alert" hidden></p>
+      <form id="form-desfazer">
+        <div class="campo">
+          <label for="codigo">Seu código</label>
+          <input type="text" id="codigo" name="codigo" maxlength="6"
+                 autocapitalize="characters" autocomplete="off"
+                 placeholder="ABC234" class="campo-codigo">
+        </div>
+        <button type="submit" class="botao secundario">Desfazer minha escolha</button>
+      </form>
+    </div>
+
+    <p style="text-align:center">
+      <a href="index.html">Voltar ao convite</a>
+    </p>
+
+  </main>
+
+  <footer class="rodape">
+    <p>Feito com carinho para a Bibia 💛</p>
+  </footer>
+
+  <script src="js/evento.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/presentes.js"></script>
+</body>
+</html>

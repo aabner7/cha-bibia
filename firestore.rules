@@ -1,0 +1,126 @@
+rules_version = '2';
+
+// ============================================================
+// REGRAS DE SEGURANÇA DO BANCO DE DADOS
+// ------------------------------------------------------------
+// Este arquivo é a tranca do banco de dados. Ele decide quem
+// pode ler e escrever cada coisa — e vale mesmo que alguém
+// tente acessar o banco por fora do site.
+//
+// Em resumo:
+//   - Presentes: todos veem; só você cria, edita e apaga.
+//   - Estoque: o visitante pode tirar 1 ao marcar, ou devolver
+//     1 ao desfazer. Nada além disso.
+//   - Confirmações: qualquer um envia a sua; só você lê a lista.
+//   - Reservas: só você vê a lista inteira. O convidado só
+//     alcança a dele, e apenas se souber o código exato.
+// ============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Você é a administradora quando está logada com e-mail e senha.
+    function ehAdmin() {
+      return request.auth != null;
+    }
+
+    function texto(valor, minimo, maximo) {
+      return valor is string
+          && valor.size() >= minimo
+          && valor.size() <= maximo;
+    }
+
+    // ---------- Presentes ----------
+    match /presentes/{id} {
+
+      // A lista é pública: qualquer convidado precisa vê-la.
+      allow read: if true;
+
+      // Criar, apagar e editar de verdade: só você.
+      allow create, delete: if ehAdmin();
+
+      // Confere se a única coisa que mudou foi o estoque.
+      function soMudouEstoque() {
+        return request.resource.data.diff(resource.data)
+                 .affectedKeys().hasOnly(['disponivel']);
+      }
+
+      // O visitante pode mexer no estoque em exatamente 1 unidade,
+      // para baixo (marcou) ou para cima (desfez), sempre dentro
+      // dos limites de 0 até o total cadastrado.
+      function mexeuUmaUnidade() {
+        return soMudouEstoque()
+            && request.resource.data.disponivel is int
+            && request.resource.data.disponivel >= 0
+            && request.resource.data.disponivel <= resource.data.total
+            && (
+                 request.resource.data.disponivel == resource.data.disponivel - 1 ||
+                 request.resource.data.disponivel == resource.data.disponivel + 1
+               );
+      }
+
+      allow update: if ehAdmin() || mexeuUmaUnidade();
+    }
+
+    // ---------- Reservas (quem vai levar o quê) ----------
+    // O código que o convidado recebe É o nome do documento.
+    match /reservas/{codigo} {
+
+      // "get" = buscar UM documento pelo nome exato.
+      // Como o nome é o código sorteado, só quem tem o código
+      // alcança a própria reserva. Ninguém consegue listar todas.
+      allow get: if true;
+
+      // "list" = pedir a lista inteira. Só você.
+      allow list: if ehAdmin();
+
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['presenteId', 'presenteNome', 'nome',
+                          'recado', 'ativa', 'criadoEm'])
+                    && texto(request.resource.data.presenteId, 1, 100)
+                    && texto(request.resource.data.presenteNome, 1, 150)
+                    && texto(request.resource.data.nome, 3, 80)
+                    && texto(request.resource.data.recado, 0, 200)
+                    && request.resource.data.ativa == true
+                    && request.resource.data.criadoEm == request.time
+                    && codigo.size() == 6;
+
+      // Desfazer: a única mudança permitida é marcar como inativa.
+      function soCancelou() {
+        return request.resource.data.diff(resource.data)
+                 .affectedKeys().hasOnly(['ativa'])
+            && resource.data.ativa == true
+            && request.resource.data.ativa == false;
+      }
+
+      allow update: if ehAdmin() || soCancelou();
+      allow delete: if ehAdmin();
+    }
+
+    // ---------- Confirmações de presença ----------
+    match /confirmacoes/{id} {
+
+      // Ninguém de fora lê a lista de convidados.
+      allow read: if ehAdmin();
+
+      // Qualquer visitante pode enviar a própria confirmação,
+      // desde que os campos sejam exatamente estes e válidos.
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['nome', 'pessoas', 'telefone', 'criadoEm'])
+                    && texto(request.resource.data.nome, 3, 80)
+                    && request.resource.data.pessoas is int
+                    && request.resource.data.pessoas >= 1
+                    && request.resource.data.pessoas <= 20
+                    && texto(request.resource.data.telefone, 0, 20)
+                    && request.resource.data.criadoEm == request.time;
+
+      // Depois de enviada, só você pode mexer.
+      allow update, delete: if ehAdmin();
+    }
+
+    // Tudo que não estiver escrito acima fica bloqueado.
+    match /{documento=**} {
+      allow read, write: if false;
+    }
+  }
+}

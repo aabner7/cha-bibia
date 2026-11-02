@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirmar presença — Chá da Bibia</title>
+  <meta name="description" content="Confirme sua presença no chá da Bibia.">
+  <link rel="stylesheet" href="css/tema.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <header class="capa">
+    <img class="ilustracao pequena" src="img/chico-3.webp" width="555" height="900"
+         alt="Ilustração em aquarela do Chico sentado">
+    <p class="subtitulo">Chá da Bibia</p>
+    <h1>Confirmar presença</h1>
+  </header>
+
+  <main class="pagina">
+
+    <form class="cartao" id="form-rsvp" novalidate>
+      <p>
+        Nos conte se você vem, para prepararmos tudo com carinho.
+        Leva menos de um minuto.
+      </p>
+
+      <p class="aviso erro" id="aviso" role="alert" hidden></p>
+
+      <div class="campo">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" autocomplete="name"
+               placeholder="Maria Silva" required maxlength="80">
+      </div>
+
+      <div class="campo">
+        <label for="pessoas">Quantas pessoas vão, contando você</label>
+        <input type="number" id="pessoas" name="pessoas"
+               value="1" min="1" max="20" inputmode="numeric" required>
+        <span class="ajuda">Inclua crianças e acompanhantes.</span>
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone <span class="opcional">(opcional)</span></label>
+        <input type="tel" id="telefone" name="telefone" autocomplete="tel"
+               placeholder="(31) 90000-0000" maxlength="20">
+        <span class="ajuda">Só para avisarmos de algum imprevisto.</span>
+      </div>
+
+      <button type="submit" class="botao" id="botao-enviar">Confirmar presença</button>
+    </form>
+
+    <div class="cartao sucesso" id="bloco-sucesso" hidden>
+      <h2>Que alegria, <span id="sucesso-nome"></span>! 💛</h2>
+      <p>Sua confirmação foi registrada. Já estamos ansiosos para te ver.</p>
+      <p><strong>Terça-feira, 8 de dezembro de 2026, às 12h</strong><br>
+         Rua Teodomiro Cruz, 175 — Novo São Lucas, Belo Horizonte / MG</p>
+      <a class="botao" href="presentes.html">Ver a lista de presentes</a>
+    </div>
+
+    <p style="text-align:center">
+      <a href="index.html">Voltar ao convite</a>
+    </p>
+
+  </main>
+
+  <footer class="rodape">
+    <p>Feito com carinho para a Beatriz 💛</p>
+  </footer>
+
+  <script src="js/evento.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/rsvp.js"></script>
+</body>
+</html>

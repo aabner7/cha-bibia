@@ -1,0 +1,37 @@
+{
+  "_leia_me": "Lista inicial de presentes. Serve para (1) mostrar a página antes do Firebase existir e (2) ser importada para o banco de dados pela área administrativa. Depois que a lista estiver no Firebase, quem manda é o banco, e este arquivo vira só uma cópia de segurança.",
+
+  "categorias": [
+    { "id": "banho",   "nome": "Banho" },
+    { "id": "pele",    "nome": "Pele" },
+    { "id": "troca",   "nome": "Hora da troca" },
+    { "id": "cuidados","nome": "Cabelo e unhas" },
+    { "id": "narizinho","nome": "Narizinho" },
+    { "id": "boca",    "nome": "Higiene bucal" }
+  ],
+
+  "presentes": [
+    { "nome": "Mustela Gel Lavante abacate", "categoria": "banho", "total": 2, "link": "https://link.amazon/B07Z9bW4A", "descricao": "", "foto": "" },
+    { "nome": "Mustela Gel sem fragrância", "categoria": "banho", "total": 2, "link": "https://link.amazon/B00xkFIM8", "descricao": "", "foto": "" },
+    { "nome": "Sabonete Johnson's Baby Derma Protect", "categoria": "banho", "total": 3, "link": "https://link.amazon/B0egRcD08", "descricao": "", "foto": "" },
+
+    { "nome": "Creme preventivo de assaduras Mustela", "categoria": "pele", "total": 3, "link": "https://link.amazon/B0iOyMovU", "descricao": "", "foto": "" },
+    { "nome": "Creme hidratante Cetaphil", "categoria": "pele", "total": 2, "link": "https://link.amazon/B0cpaMxLt", "descricao": "", "foto": "" },
+
+    { "nome": "Fralda Pampers RN Premium Care", "categoria": "troca", "total": 6, "link": "https://link.amazon/B0brYrc98", "descricao": "Tamanho RN (recém-nascido).", "foto": "" },
+    { "nome": "Algodão quadrado Bellacotton", "categoria": "troca", "total": 4, "link": "https://link.amazon/B0dk34eYo", "descricao": "", "foto": "" },
+    { "nome": "Lenço umedecido Bepantol", "categoria": "troca", "total": 4, "link": "https://link.amazon/B04kj6ODc", "descricao": "", "foto": "" },
+
+    { "nome": "Escova e pente Buba", "categoria": "cuidados", "total": 1, "link": "https://link.amazon/B0iK7xOVl", "descricao": "", "foto": "" },
+    { "nome": "Escova e pente Chicco", "categoria": "cuidados", "total": 1, "link": "https://link.amazon/B04bpTh6u", "descricao": "", "foto": "" },
+    { "nome": "Tesourinha de unhas Mundial", "categoria": "cuidados", "total": 1, "link": "https://link.amazon/B0177iymX", "descricao": "", "foto": "" },
+    { "nome": "Kit de tesoura e lixa de unha Buba", "categoria": "cuidados", "total": 1, "link": "https://link.amazon/B0dL5XrSu", "descricao": "", "foto": "" },
+    { "nome": "Kit lixa de unha elétrico Buba", "categoria": "cuidados", "total": 1, "link": "https://link.amazon/B0aOni3Du", "descricao": "", "foto": "" },
+
+    { "nome": "Aspirador nasal Likluc", "categoria": "narizinho", "total": 1, "link": "https://link.amazon/B0dPOVSq5", "descricao": "", "foto": "" },
+    { "nome": "Seringa de lavagem nasal Buba", "categoria": "narizinho", "total": 2, "link": "https://link.amazon/B0hDy1BAW", "descricao": "", "foto": "" },
+
+    { "nome": "MAM Baby kit com 2 escovas de dentes", "categoria": "boca", "total": 1, "link": "https://link.amazon/B01MOUnUr", "descricao": "", "foto": "" },
+    { "nome": "Gel dental Trá Lá Lá", "categoria": "boca", "total": 1, "link": "https://link.amazon/B03ouAAxg", "descricao": "", "foto": "" }
+  ]
+}

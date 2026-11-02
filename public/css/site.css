@@ -1,0 +1,689 @@
+/* ============================================================
+   SITE — estrutura e posicionamento
+   ------------------------------------------------------------
+   Este arquivo cuida de ONDE as coisas ficam na tela.
+   As CORES e FONTES não estão aqui: estão em tema.css.
+   Normalmente você não precisa mexer neste arquivo.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-texto);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  color: var(--cor-titulo);
+  line-height: 1.15;
+  margin: 0 0 var(--espaco-pequeno);
+}
+
+p { margin: 0 0 var(--espaco-pequeno); }
+
+strong { font-weight: 700; }
+
+/* Links em marrom e sublinhados: o vermelho da marca é claro
+   demais para letra pequena e ficaria difícil de ler. */
+a { color: var(--cor-texto); text-underline-offset: 3px; }
+a:hover { color: var(--cor-destaque-escuro); }
+
+/* Faixa central: tudo fica dentro desta largura */
+.pagina {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: var(--espaco);
+}
+
+/* ----- Cabeçalho do convite ----- */
+.capa {
+  text-align: center;
+  padding: var(--espaco-grande) var(--espaco) var(--espaco);
+}
+
+.capa .ilustracao { margin-bottom: var(--espaco-pequeno); }
+
+.ilustracao {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto var(--espaco);
+}
+.ilustracao.grande  { width: min(78%, 300px); }
+.ilustracao.media   { width: min(52%, 210px); }
+.ilustracao.pequena { width: min(34%, 130px); }
+
+.capa h1 {
+  font-size: var(--tamanho-titulo-grande);
+}
+
+.capa .subtitulo {
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-pequeno);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 var(--espaco-pequeno);
+}
+
+/* ----- Caixas brancas ----- */
+.cartao {
+  background: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--arredondamento);
+  box-shadow: var(--sombra);
+  padding: var(--espaco);
+  margin-bottom: var(--espaco);
+}
+
+.cartao h2 {
+  font-size: var(--tamanho-titulo);
+}
+
+/* ----- Lista de informações do evento ----- */
+.detalhes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.detalhes li {
+  display: flex;
+  gap: var(--espaco-pequeno);
+  padding: var(--espaco-pequeno) 0;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.detalhes li:last-child { border-bottom: none; }
+
+.detalhes .rotulo {
+  flex: 0 0 5.2rem;
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-pequeno);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-top: 0.2rem;
+}
+
+.detalhes .valor { flex: 1; }
+
+/* ----- Contador regressivo ----- */
+.contador {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espaco-pequeno);
+  text-align: center;
+  margin-top: var(--espaco-pequeno);
+}
+
+.contador .bloco {
+  background: var(--cor-bloco-1);
+  border-radius: var(--arredondamento);
+  padding: var(--espaco-pequeno) 0.25rem;
+}
+
+.contador .bloco:nth-child(even) { background: var(--cor-bloco-2); }
+
+.contador .chegou {
+  grid-column: 1 / -1;
+  font-family: var(--fonte-titulo);
+  font-size: var(--tamanho-titulo);
+  color: var(--cor-titulo);
+  margin: 0;
+}
+
+.contador .numero {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.5rem, 7vw, 2.2rem);
+  font-weight: 700;
+  color: var(--cor-texto);
+  font-variant-numeric: tabular-nums;
+}
+
+.contador .unidade {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cor-texto);
+}
+
+/* ----- Mapa ----- */
+.mapa {
+  border: 0;
+  width: 100%;
+  height: 260px;
+  border-radius: var(--arredondamento);
+  display: block;
+}
+
+/* ----- Botões ----- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  text-align: center;
+  line-height: 1.2;
+  border: 1px solid var(--cor-destaque);
+  border-radius: var(--arredondamento-botao);
+  background: var(--cor-destaque);
+  color: var(--cor-texto-botao);
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem; /* letra grande: o vermelho da marca pede texto grande para ser legível */
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.botao:hover,
+.botao:focus-visible { background: var(--cor-destaque-escuro); border-color: var(--cor-destaque-escuro); color: var(--cor-texto-botao); }
+
+.botao.secundario {
+  background: transparent;
+  color: var(--cor-texto);
+  border-color: var(--cor-texto);
+}
+
+.botao.secundario:hover,
+.botao.secundario:focus-visible { background: var(--cor-destaque-clarinho); color: var(--cor-texto); }
+
+.botao + .botao { margin-top: var(--espaco-pequeno); }
+
+/* ----- Rodapé ----- */
+.rodape {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-pequeno);
+  padding: var(--espaco) var(--espaco) var(--espaco-grande);
+}
+
+/* ----- Acessibilidade: contorno visível ao navegar pelo teclado ----- */
+:focus-visible {
+  outline: 3px solid var(--cor-texto);
+  outline-offset: 2px;
+}
+
+/* ----- Quem prefere menos animação não vê transição ----- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ============================================================
+   FORMULÁRIOS
+   ============================================================ */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--espaco);
+}
+
+.campo label {
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.campo .opcional {
+  font-weight: 400;
+  color: var(--cor-texto-suave);
+  font-size: var(--tamanho-pequeno);
+}
+
+.campo input,
+.campo textarea,
+.campo select {
+  font-family: var(--fonte-texto);
+  font-size: 1rem; /* 16px evita que o celular dê zoom ao tocar */
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
+  width: 100%;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+  border-color: var(--cor-texto);
+}
+
+.campo .ajuda {
+  font-size: var(--tamanho-pequeno);
+  color: var(--cor-texto-suave);
+  margin-top: 0.3rem;
+}
+
+/* ----- Avisos ----- */
+.aviso {
+  border-radius: 10px;
+  padding: var(--espaco-pequeno);
+  margin: 0 0 var(--espaco);
+  font-size: var(--tamanho-pequeno);
+}
+
+.aviso.erro {
+  background: var(--cor-erro-fundo);
+  color: var(--cor-erro);
+  border: 1px solid var(--cor-erro);
+}
+
+.aviso.ok {
+  background: var(--cor-sucesso-fundo);
+  color: var(--cor-sucesso);
+  border: 1px solid var(--cor-sucesso);
+}
+
+/* ----- Cartão de sucesso ----- */
+.cartao.sucesso {
+  border-color: var(--cor-sucesso);
+  background: var(--cor-sucesso-fundo);
+}
+
+.cartao.sucesso h2 { color: var(--cor-sucesso); }
+
+/* ----- Botão desabilitado ----- */
+.botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ============================================================
+   LISTA DE PRESENTES
+   ============================================================ */
+
+.carregando {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: var(--espaco-grande) 0;
+}
+
+.categoria { margin-bottom: var(--espaco-grande); }
+
+.categoria h2 {
+  font-size: var(--tamanho-titulo);
+  margin-bottom: var(--espaco-pequeno);
+  padding-left: 0.2rem;
+}
+
+/* Cada presente é um cartão em três partes:
+   foto à esquerda, texto no meio, botão embaixo. */
+.presente {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: var(--espaco-pequeno);
+  align-items: start;
+  background: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--arredondamento);
+  box-shadow: var(--sombra);
+  padding: var(--espaco-pequeno);
+  margin-bottom: var(--espaco-pequeno);
+}
+
+.presente-foto {
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--cor-fundo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presente-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Sem foto: um quadradinho colorido com a inicial do presente.
+   As cores vêm da paleta e se alternam sozinhas. */
+.presente-foto.sem-foto {
+  font-family: var(--fonte-titulo);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cor-texto);
+  background: var(--paleta-lima);
+}
+
+.categoria .presente:nth-child(3n)   .sem-foto { background: var(--paleta-agua); }
+.categoria .presente:nth-child(3n+1) .sem-foto { background: #ffd9d3; }
+
+.presente-corpo { min-width: 0; }
+
+.presente-corpo.largura-total { grid-column: 1 / -1; }
+
+.presente-corpo h3 {
+  font-size: 1.15rem;
+  color: var(--cor-texto);
+  margin-bottom: 0.2rem;
+}
+
+.presente-descricao {
+  font-size: var(--tamanho-pequeno);
+  color: var(--cor-texto-suave);
+  margin: 0 0 0.3rem;
+}
+
+.presente-situacao {
+  font-size: var(--tamanho-pequeno);
+  font-weight: 700;
+  color: var(--cor-sucesso);
+  margin: 0 0 0.3rem;
+}
+
+.presente-link {
+  font-size: var(--tamanho-pequeno);
+  display: inline-block;
+}
+
+/* O botão ocupa a largura toda, embaixo das duas colunas */
+.presente-acao { grid-column: 1 / -1; }
+
+.presente-acao .botao { font-size: 1rem; padding: 0.6rem 1rem; }
+
+/* ----- Presente já escolhido ----- */
+.presente.esgotado { opacity: 0.65; }
+
+.presente.esgotado .presente-situacao { color: var(--cor-esgotado); }
+
+.presente.esgotado .sem-foto {
+  background: #ece5e1 !important;
+  color: var(--cor-esgotado);
+}
+
+.etiqueta-marcado {
+  margin: 0;
+  font-weight: 700;
+  color: var(--cor-sucesso);
+  font-size: var(--tamanho-pequeno);
+}
+
+/* ----- Cartão depois de reservar ----- */
+.presente.reservado {
+  grid-template-columns: 1fr;
+  border-color: var(--cor-sucesso);
+  background: var(--cor-sucesso-fundo);
+}
+
+.rotulo-codigo {
+  margin: var(--espaco-pequeno) 0 0.2rem;
+  font-size: var(--tamanho-pequeno);
+  font-weight: 700;
+}
+
+.codigo {
+  font-family: var(--fonte-texto);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--cor-sucesso);
+  background: var(--cor-cartao);
+  border: 2px dashed var(--cor-sucesso);
+  border-radius: 12px;
+  padding: 0.5rem;
+  text-align: center;
+  margin: 0 0 var(--espaco-pequeno);
+  user-select: all; /* um toque seleciona o código inteiro para copiar */
+}
+
+.campo-codigo {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 1.3rem !important;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ----- Formulário dentro do presente ----- */
+.form-marcar {
+  border-top: 1px solid var(--cor-borda);
+  padding-top: var(--espaco-pequeno);
+  margin-top: 0.2rem;
+}
+
+.form-marcar .campo { margin-bottom: var(--espaco-pequeno); }
+
+.form-marcar .campo label { font-size: var(--tamanho-pequeno); }
+
+.form-marcar .botao { font-size: 1rem; padding: 0.6rem 1rem; }
+
+/* ============================================================
+   ÁREA ADMINISTRATIVA
+   ============================================================ */
+
+.pagina-larga { max-width: 860px; }
+
+.barra-admin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-pequeno);
+  background: var(--cor-cartao);
+  border-bottom: 1px solid var(--cor-borda);
+  padding: var(--espaco-pequeno) var(--espaco);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.barra-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--cor-titulo);
+}
+
+/* ----- Resumo em três caixas ----- */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-pequeno);
+  margin-bottom: var(--espaco);
+}
+
+.resumo-caixa {
+  background: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--arredondamento);
+  padding: var(--espaco-pequeno);
+  text-align: center;
+}
+
+.resumo-numero {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  font-weight: 700;
+  color: var(--cor-titulo);
+  line-height: 1.1;
+}
+
+.resumo-rotulo {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cor-texto-suave);
+}
+
+/* ----- Abas ----- */
+.abas {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: var(--espaco);
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.aba {
+  flex: 1 0 auto;
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-pequeno);
+  font-weight: 700;
+  color: var(--cor-texto);
+  background: transparent;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--arredondamento-botao);
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.aba.ativa {
+  background: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  color: var(--cor-texto-botao);
+}
+
+/* ----- Linhas de dados ----- */
+.linha-admin {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-pequeno);
+  flex-wrap: wrap;
+  background: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  padding: var(--espaco-pequeno);
+  margin-bottom: 0.5rem;
+}
+
+.linha-info { flex: 1 1 12rem; min-width: 0; }
+
+.linha-nome { display: block; }
+
+.linha-meta,
+.linha-recado {
+  display: block;
+  font-size: var(--tamanho-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.linha-recado { font-style: italic; margin-top: 0.2rem; }
+
+.linha-estoque {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.estoque-numero {
+  font-weight: 700;
+  min-width: 3rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.selo-pessoas {
+  background: var(--paleta-lima);
+  border-radius: var(--arredondamento-botao);
+  padding: 0.25rem 0.7rem;
+  font-size: var(--tamanho-pequeno);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.botao-circulo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.botao-circulo:hover { background: var(--cor-destaque-clarinho); }
+
+.linha-botoes {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.botao-texto {
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-pequeno);
+  font-weight: 700;
+  color: var(--cor-texto);
+  background: transparent;
+  border: 0;
+  padding: 0.4rem 0.2rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.botao-texto.perigo { color: var(--cor-erro); }
+
+.linha-acoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--espaco-pequeno);
+}
+
+.linha-acoes .botao {
+  width: auto;
+  font-size: var(--tamanho-pequeno);
+  padding: 0.5rem 1rem;
+}
+
+.form-edicao { margin: 0.5rem 0 var(--espaco); }
+
+.vazio {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: var(--espaco-grande) var(--espaco);
+}
+
+/* Em telas estreitas o resumo vira uma coluna só se não couber */
+@media (max-width: 380px) {
+  .resumo { grid-template-columns: 1fr 1fr; }
+  .resumo-caixa:last-child { grid-column: 1 / -1; }
+}
+
+.resumo-numero.menor { font-size: clamp(1.1rem, 4.5vw, 1.5rem); }
+
+/* Caixa que abre e fecha ao tocar no título */
+.dobravel summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-pequeno);
+}
+
+.dobravel summary::-webkit-details-marker { display: none; }
+
+.dobravel summary h2 { margin: 0; }
+
+.dobravel summary::after {
+  content: '+';
+  font-family: var(--fonte-titulo);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--cor-titulo);
+  line-height: 1;
+}
+
+.dobravel[open] summary::after { content: '−'; }
+
+.dobravel[open] summary { margin-bottom: var(--espaco); }

@@ -1,0 +1,108 @@
+/* ============================================================
+   TEMA — Chá de bebê da Beatriz
+   ------------------------------------------------------------
+   Identidade visual criada pela designer (cores, fontes e as
+   ilustrações do Chico).
+
+   ESTE É O ÚNICO ARQUIVO DE "APARÊNCIA".
+   Cor, fonte e arredondamento das bordas ficam aqui, com nome
+   em português. O resto do site só usa esses nomes. Mudando um
+   valor aqui, a mudança aparece em todas as páginas.
+
+   As ilustrações ficam na pasta public/img/ (chico-1.webp,
+   chico-2.webp e chico-3.webp). Para trocar um desenho, basta
+   substituir o arquivo mantendo o mesmo nome.
+   ============================================================ */
+
+/* ----- Fontes -----------------------------------------------
+   As duas fontes ficam guardadas dentro do próprio site
+   (pasta public/fonts/). Assim o convite não depende do Google,
+   abre mais rápido e não envia dados dos convidados a terceiros.
+   - Gluten ......... títulos
+   - Roboto Mono .... todo o resto (data, horário, endereço, textos) */
+@font-face {
+  font-family: 'Gluten';
+  src: url('../fonts/gluten-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('../fonts/roboto-mono-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('../fonts/roboto-mono-latin-wght-italic.woff2') format('woff2');
+  font-weight: 100 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ----- Paleta da designer ---------------------------------
+     Os sete tons exatamente como vieram na identidade visual.
+     Abaixo, cada "papel" no site aponta para um deles.        */
+  --paleta-vermelho: #f74f50;
+  --paleta-coral:    #fa7f72;
+  --paleta-lima:     #dbed7e;
+  --paleta-verde:    #27b46e;
+  --paleta-agua:     #a2eeeb;
+  --paleta-creme:    #fbf5f2;
+  --paleta-marrom:   #624f48;
+
+  /* ----- Papéis das cores no site --------------------------- */
+  --cor-fundo:            var(--paleta-creme);   /* fundo das páginas        */
+  --cor-cartao:           #ffffff;               /* fundo das caixas         */
+  --cor-texto:            var(--paleta-marrom);  /* texto comum              */
+  --cor-texto-suave:      #7a645c;               /* legendas, textos menores
+                                                    (marrom um pouco mais claro) */
+  --cor-titulo:           var(--paleta-vermelho);/* títulos                  */
+  --cor-destaque:         var(--paleta-vermelho);/* botões principais        */
+  --cor-destaque-escuro:  #d93a3c;               /* botão ao passar o mouse  */
+  --cor-destaque-clarinho:#f3ede8;               /* fundo do botão secundário
+                                                    ao passar o mouse        */
+  --cor-borda:            #eadfd8;               /* linhas finas             */
+  --cor-texto-botao:      var(--paleta-creme);   /* letra dentro dos botões  */
+
+  /* Blocos do contador regressivo (alternam entre as duas cores) */
+  --cor-bloco-1:          var(--paleta-lima);
+  --cor-bloco-2:          var(--paleta-agua);
+
+  /* ----- Cores de aviso -------------------------------------
+     Verde e vermelho da paleta ficam claros demais para letras
+     pequenas, então os avisos usam versões mais escuras deles. */
+  --cor-sucesso:          #1b7d4a;
+  --cor-sucesso-fundo:    #e6f7ef;
+  --cor-erro:             #b82a2b;
+  --cor-erro-fundo:       #fdece9;
+  --cor-esgotado:         #9a8a84;  /* presente já escolhido */
+
+  /* ----- Fontes --------------------------------------------- */
+  --fonte-titulo: 'Gluten', 'Trebuchet MS', system-ui, sans-serif;
+  --fonte-texto:  'Roboto Mono', ui-monospace, 'Courier New', monospace;
+
+  /* ----- Tamanhos de letra ----------------------------------
+     clamp() = "no celular usa o menor, no computador o maior". */
+  --tamanho-titulo-grande: clamp(2.1rem, 9vw, 3.2rem);
+  --tamanho-titulo:        clamp(1.5rem, 5.5vw, 1.9rem);
+  --tamanho-texto:         0.95rem;
+  --tamanho-pequeno:       0.8rem;
+
+  /* ----- Formato dos elementos ------------------------------ */
+  --arredondamento:        22px;  /* cantos das caixas */
+  --arredondamento-botao:  999px; /* botões em formato de pílula.
+                                     Use 8px para botões quadrados. */
+  --sombra: 0 3px 14px rgba(98, 79, 72, 0.08);
+
+  /* ----- Espaçamentos --------------------------------------- */
+  --espaco-pequeno: 0.75rem;
+  --espaco:         1.25rem;
+  --espaco-grande:  2.5rem;
+  --largura-maxima: 640px; /* largura do conteúdo em telas grandes */
+}

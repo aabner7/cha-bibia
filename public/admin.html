@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Área administrativa — Chá da Bibia</title>
+
+  <!-- Pede aos buscadores que não mostrem esta página em pesquisas. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="stylesheet" href="css/tema.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+  <!-- ============ TELA DE LOGIN ============ -->
+  <div id="tela-login">
+    <header class="capa">
+      <p class="subtitulo">Chá da Bibia</p>
+      <h1>Área administrativa</h1>
+    </header>
+
+    <main class="pagina">
+      <form class="cartao" id="form-login">
+        <p class="aviso ok" id="aviso-demo-login" hidden>
+          <strong>Modo demonstração.</strong> O Firebase ainda não foi ligado.
+          Qualquer e-mail e senha entram, e nada é salvo de verdade.
+        </p>
+
+        <p class="aviso erro" id="erro-login" role="alert" hidden></p>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" autocomplete="username" required>
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" class="botao" id="botao-entrar">Entrar</button>
+      </form>
+
+      <p style="text-align:center"><a href="index.html">Voltar ao convite</a></p>
+    </main>
+  </div>
+
+  <!-- ============ PAINEL ============ -->
+  <div id="painel" hidden>
+
+    <header class="barra-admin">
+      <span class="barra-titulo">Chá da Bibia</span>
+      <button type="button" class="botao-texto" id="botao-sair">Sair</button>
+    </header>
+
+    <main class="pagina pagina-larga">
+
+      <p class="aviso ok" id="aviso-demo-painel" hidden>
+        <strong>Modo demonstração.</strong> Dá para mexer em tudo para conhecer a
+        página, mas nada é salvo: ao atualizar, volta ao começo.
+      </p>
+
+      <!-- ---- Resumo ---- -->
+      <section class="resumo" id="resumo"></section>
+
+      <!-- ---- Abas ---- -->
+      <nav class="abas" id="abas">
+        <button type="button" class="aba ativa" data-aba="presentes">Presentes</button>
+        <button type="button" class="aba" data-aba="confirmacoes">Confirmações</button>
+        <button type="button" class="aba" data-aba="reservas">Quem leva o quê</button>
+      </nav>
+
+      <!-- ---- Presentes ---- -->
+      <section id="painel-presentes">
+        <div class="cartao" id="bloco-importar" hidden>
+          <h2>Começar a lista</h2>
+          <p>Sua lista está vazia. Posso cadastrar de uma vez os
+             <strong id="qtd-importar">17</strong> itens que você já tinha montado.</p>
+          <button type="button" class="botao" id="botao-importar">Importar lista inicial</button>
+        </div>
+
+        <details class="cartao dobravel">
+          <summary><h2>Adicionar presente</h2></summary>
+          <form id="form-novo"></form>
+        </details>
+
+        <div class="linha-acoes">
+          <button type="button" class="botao secundario" data-csv="presentes">
+            Baixar presentes em Excel
+          </button>
+        </div>
+
+        <div id="lista-admin-presentes"></div>
+      </section>
+
+      <!-- ---- Confirmações ---- -->
+      <section id="painel-confirmacoes" hidden>
+        <div class="linha-acoes">
+          <button type="button" class="botao secundario" data-csv="confirmacoes">
+            Baixar confirmações em Excel
+          </button>
+        </div>
+        <div id="lista-confirmacoes"></div>
+      </section>
+
+      <!-- ---- Reservas ---- -->
+      <section id="painel-reservas" hidden>
+        <div class="linha-acoes">
+          <button type="button" class="botao secundario" data-csv="reservas">
+            Baixar lista em Excel
+          </button>
+        </div>
+        <div id="lista-reservas"></div>
+      </section>
+
+    </main>
+
+    <footer class="rodape">
+      <p><a href="index.html">Ver o site como os convidados veem</a></p>
+    </footer>
+  </div>
+
+  <script src="js/evento.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
