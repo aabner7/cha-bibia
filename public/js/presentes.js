@@ -100,9 +100,9 @@
      DESENHAR A LISTA NA TELA
      --------------------------------------------------------- */
   var NOMES_CATEGORIA = {
-    banho: 'Banho', pele: 'Pele', troca: 'Hora da troca',
-    cuidados: 'Cabelo e unhas', narizinho: 'Narizinho', boca: 'Higiene bucal',
-    outros: 'Outros',
+    quarto: 'Quarto', banho: 'Banho', pele: 'Pele', troca: 'Hora da troca',
+    cuidados: 'Cabelo e unhas', narizinho: 'Narizinho', transporte: 'Transporte',
+    alimentacao: 'Alimentação', boca: 'Higiene bucal', outros: 'Outros',
   };
 
   function desenhar() {

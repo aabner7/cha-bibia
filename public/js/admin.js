@@ -25,6 +25,9 @@
   };
 
   var CATEGORIAS = [
+    { id: 'quarto',     nome: 'Quarto' },
+    { id: 'transporte', nome: 'Transporte' },
+    { id: 'alimentacao', nome: 'Alimentação' },
     { id: 'banho',      nome: 'Banho' },
     { id: 'pele',       nome: 'Pele' },
     { id: 'troca',      nome: 'Hora da troca' },
