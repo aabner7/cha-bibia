@@ -62,3 +62,23 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 37 | CSV com ponto e vírgula e marca de acentuação (BOM) | É o formato que o Excel em português abre com um duplo clique, sem janela de importação e sem acento quebrado. |
 | 38 | Botão "Importar lista inicial", que só aparece quando a lista está vazia | Cadastrar 17 itens na mão seria cansativo; e, uma vez cadastrados, o botão some para não duplicar. |
 | 39 | A área administrativa também tem modo demonstração | Você conhece a página e decide o que mudar antes de criar a conta no Firebase. |
+
+## Etapa E — presentes por Pix
+
+| # | Decisão | Por quê |
+|---|---------|---------|
+| 40 | O código Pix é montado pelo próprio site, a partir da chave aleatória, e não o código pronto que o banco gerou | O código pronto não tinha valor e era igual para todos; gerando aqui, cada presente sai com o preço certo já embutido. |
+| 41 | A chave, o nome e a cidade ficam só em `public/js/pix-config.js` | Trocar a chave no futuro é mexer em um arquivo e publicar, sem caçar o valor espalhado pelo código. |
+| 42 | Chave aleatória em vez de CPF ou telefone | A chave fica visível no site; a aleatória recebe dinheiro sem identificar você nem dar acesso à conta. |
+| 43 | Biblioteca do QR code (qrcode-generator, licença MIT) guardada dentro do site, em `public/js/vendor/` | Mesma razão das fontes: o convite não depende de outro serviço no ar e abre rápido no celular. |
+| 44 | O QR code é desenhado no celular de quem olha, sem chamar nenhum serviço | Nenhum dado de convidado ou de pagamento sai para terceiros. |
+| 45 | A chave Pix só aparece depois que o convidado escolhe um presente | Reduz a chance de alguém de fora copiar a chave só por abrir a página. |
+| 46 | "Já fiz o Pix" grava apenas um aviso (`avisouPix`), e nunca o status de recebido | Pelas regras do banco, só a administradora logada marca "recebido", então ninguém consegue fingir pagamento. |
+| 47 | A liberação de um presente parado há mais de 24 horas é manual, com aviso no topo da aba | A liberação automática exigiria Cloud Functions e o plano Blaze com cartão; e quem pagou sem avisar não perde o presente por descuido do site. |
+| 48 | Presente com preço zero aparece como "Em breve", sem botão | Evita gerar um Pix de R$ 0,00 enquanto os preços não forem preenchidos. |
+| 49 | Importação por planilha CSV com as colunas NOME, LINK e PRECO | Preencher 35 preços na mão seria cansativo; a planilha também serve para trocar a lista inteira de uma vez. |
+| 50 | A importação apaga o que sobrou só depois de confirmação, listando os nomes e avisando quais já foram escolhidos | Apagar presente já escolhido por alguém não tem volta. |
+| 51 | A importação entende preço em qualquer formato (`89,90`, `R$ 89,90`, `1.249,00`) e separador `;` ou `,` | O arquivo sai diferente do Excel e do Google Planilhas, e a pessoa não deveria ter que saber disso. |
+| 52 | A exportação de presentes usa as mesmas colunas NOME, LINK e PRECO | Dá para baixar, corrigir no Excel e subir de volta, sem montar planilha do zero. |
+| 53 | Valores no CSV saem com vírgula decimal | É assim que o Excel em português entende como dinheiro e consegue somar. |
+| 54 | Marcação `v1` no Git antes de começar | Ponto de retorno, caso a mudança para Pix precise ser desfeita. |

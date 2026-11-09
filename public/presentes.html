@@ -21,12 +21,13 @@
 
     <div class="cartao">
       <p>
-        Escolha o que quiser levar e marque aqui. Assim ninguém leva
-        a mesma coisa duas vezes.
+        Para facilitar, os presentes são por Pix. Escolha um item e o site
+        mostra o QR code já com o valor certo — a gente compra depois.
       </p>
       <p class="presente-descricao" style="margin-bottom:0">
-        Os links são só sugestões de onde encontrar. Fique à vontade para
-        comprar onde preferir, ou levar algo parecido.
+        Assim ninguém presenteia a mesma coisa duas vezes, e você não
+        precisa carregar nada até a festa. Os links são só para você ver
+        o que é cada item.
       </p>
     </div>
 
@@ -43,7 +44,7 @@
     <div class="cartao" id="bloco-desfazer" hidden>
       <h2>Precisa desfazer?</h2>
       <p>
-        Digite o código que você recebeu ao marcar o presente. Ele garante
+        Digite o código que você recebeu ao escolher o presente. Ele garante
         que só você pode desfazer a sua escolha.
       </p>
       <p class="aviso" id="aviso-desfazer" role="alert" hidden></p>
@@ -70,6 +71,9 @@
 
   <script src="js/evento.js"></script>
   <script src="js/firebase-config.js"></script>
+  <script src="js/vendor/qrcode-generator.js"></script>
+  <script src="js/pix-config.js"></script>
+  <script src="js/pix.js"></script>
   <script src="js/presentes.js"></script>
 </body>
 </html>

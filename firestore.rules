@@ -9,11 +9,14 @@ rules_version = '2';
 //
 // Em resumo:
 //   - Presentes: todos veem; só você cria, edita e apaga.
-//   - Estoque: o visitante pode tirar 1 ao marcar, ou devolver
-//     1 ao desfazer. Nada além disso.
+//   - Estoque: o visitante pode tirar 1 ao escolher, ou devolver
+//     1 ao desfazer. Nada além disso. O PREÇO só você muda.
 //   - Confirmações: qualquer um envia a sua; só você lê a lista.
 //   - Reservas: só você vê a lista inteira. O convidado só
 //     alcança a dele, e apenas se souber o código exato.
+//   - Pagamento: o convidado só consegue dizer "avisei que paguei".
+//     Marcar como RECEBIDO é exclusivo seu, então ninguém
+//     consegue fingir que o Pix caiu.
 // ============================================================
 
 service cloud.firestore {
@@ -75,12 +78,19 @@ service cloud.firestore {
       allow list: if ehAdmin();
 
       allow create: if request.resource.data.keys().hasOnly(
-                         ['presenteId', 'presenteNome', 'nome',
-                          'recado', 'ativa', 'criadoEm'])
+                         ['presenteId', 'presenteNome', 'nome', 'recado',
+                          'valor', 'status', 'avisouPix', 'ativa', 'criadoEm'])
                     && texto(request.resource.data.presenteId, 1, 100)
                     && texto(request.resource.data.presenteNome, 1, 150)
                     && texto(request.resource.data.nome, 3, 80)
                     && texto(request.resource.data.recado, 0, 200)
+                    && request.resource.data.valor is number
+                    && request.resource.data.valor >= 0
+                    && request.resource.data.valor <= 99999
+                    // Toda escolha nasce "aguardando": nenhum visitante
+                    // consegue criar uma reserva já dada como recebida.
+                    && request.resource.data.status == 'aguardando'
+                    && request.resource.data.avisouPix == false
                     && request.resource.data.ativa == true
                     && request.resource.data.criadoEm == request.time
                     && codigo.size() == 6;
@@ -93,7 +103,15 @@ service cloud.firestore {
             && request.resource.data.ativa == false;
       }
 
-      allow update: if ehAdmin() || soCancelou();
+      // "Já fiz o Pix": o convidado só levanta a mãozinha.
+      // Isto NÃO confirma pagamento — só você marca 'recebido'.
+      function soAvisouPix() {
+        return request.resource.data.diff(resource.data)
+                 .affectedKeys().hasOnly(['avisouPix'])
+            && request.resource.data.avisouPix == true;
+      }
+
+      allow update: if ehAdmin() || soCancelou() || soAvisouPix();
       allow delete: if ehAdmin();
     }
 
