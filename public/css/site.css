@@ -491,9 +491,14 @@ a:hover { color: var(--cor-destaque-escuro); }
 /* ----- Resumo em três caixas ----- */
 .resumo {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--espaco-pequeno);
   margin-bottom: var(--espaco);
+}
+
+/* Em tela larga as quatro caixas cabem lado a lado */
+@media (min-width: 560px) {
+  .resumo { grid-template-columns: repeat(4, 1fr); }
 }
 
 .resumo-caixa {
@@ -514,6 +519,7 @@ a:hover { color: var(--cor-destaque-escuro); }
 }
 
 .resumo-rotulo {
+  display: block;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -653,11 +659,7 @@ a:hover { color: var(--cor-destaque-escuro); }
   padding: var(--espaco-grande) var(--espaco);
 }
 
-/* Em telas estreitas o resumo vira uma coluna só se não couber */
-@media (max-width: 380px) {
-  .resumo { grid-template-columns: 1fr 1fr; }
-  .resumo-caixa:last-child { grid-column: 1 / -1; }
-}
+
 
 .resumo-numero.menor { font-size: clamp(1.1rem, 4.5vw, 1.5rem); }
 
@@ -687,3 +689,99 @@ a:hover { color: var(--cor-destaque-escuro); }
 .dobravel[open] summary::after { content: '−'; }
 
 .dobravel[open] summary { margin-bottom: var(--espaco); }
+
+/* ============================================================
+   PIX
+   ============================================================ */
+
+.presente-preco {
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--cor-titulo);
+  margin: 0 0 0.2rem;
+}
+
+.presente.tela-pix {
+  grid-template-columns: 1fr;
+  border-color: var(--cor-destaque);
+  text-align: center;
+}
+
+.pix-valor {
+  font-family: var(--fonte-titulo);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cor-titulo);
+  margin: var(--espaco-pequeno) 0;
+}
+
+.pix-qr {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 var(--espaco-pequeno);
+}
+
+.pix-qr canvas {
+  border: 8px solid #fff;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* O código Pix é longo: quebra em qualquer ponto e ganha
+   rolagem própria para não esticar a página no celular. */
+.pix-codigo {
+  font-family: var(--fonte-texto);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--cor-texto-suave);
+  background: var(--cor-fundo);
+  border: 1px dashed var(--cor-borda);
+  border-radius: 10px;
+  padding: 0.6rem;
+  margin: 0 0 var(--espaco-pequeno);
+  max-height: 5.5rem;
+  overflow-y: auto;
+  word-break: break-all;
+  text-align: left;
+  user-select: all;
+}
+
+.pix-ajuda { margin-top: var(--espaco-pequeno); }
+
+.tela-pix .botao { margin-bottom: 0.3rem; }
+
+/* ----- Importação de planilha ----- */
+.lista-simples {
+  margin: 0 0 var(--espaco);
+  padding-left: 1.1rem;
+  font-size: var(--tamanho-pequeno);
+  color: var(--cor-texto-suave);
+}
+
+.lista-simples li { margin-bottom: 0.25rem; }
+
+input[type="file"] {
+  font-family: var(--fonte-texto);
+  font-size: var(--tamanho-pequeno);
+  padding: 0.6rem;
+  border: 1px dashed var(--cor-borda);
+  border-radius: 12px;
+  background: var(--cor-fundo);
+  width: 100%;
+}
+
+/* ----- Situação de cada Pix ----- */
+.selo-status {
+  background: var(--cor-destaque-clarinho);
+  border-radius: var(--arredondamento-botao);
+  padding: 0.25rem 0.7rem;
+  font-size: var(--tamanho-pequeno);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.selo-status.ok      { background: var(--cor-sucesso-fundo); color: var(--cor-sucesso); }
+.selo-status.atencao { background: var(--cor-erro-fundo);    color: var(--cor-erro); }
+
+.linha-admin.atrasada { border-color: var(--cor-erro); }

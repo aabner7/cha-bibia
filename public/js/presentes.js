@@ -169,10 +169,17 @@
       corpo.appendChild(desc);
     }
 
+    if (p.preco > 0) {
+      var preco = document.createElement('p');
+      preco.className = 'presente-preco';
+      preco.textContent = window.formatarReais(p.preco);
+      corpo.appendChild(preco);
+    }
+
     var situacao = document.createElement('p');
     situacao.className = 'presente-situacao';
     if (esgotado) {
-      situacao.textContent = 'Já tem quem leve 💛';
+      situacao.textContent = 'Já foi presenteado 💛';
     } else if (p.total === 1) {
       situacao.textContent = 'Disponível';
     } else if (p.disponivel === p.total) {
@@ -203,13 +210,18 @@
     if (jaMarquei) {
       var marcado = document.createElement('p');
       marcado.className = 'etiqueta-marcado';
-      marcado.textContent = '✓ Você vai levar';
+      marcado.textContent = '✓ Você já escolheu este';
       acao.appendChild(marcado);
+    } else if (!esgotado && !(p.preco > 0)) {
+      var semPreco = document.createElement('p');
+      semPreco.className = 'presente-descricao';
+      semPreco.textContent = 'Em breve.';
+      acao.appendChild(semPreco);
     } else if (!esgotado) {
       var botao = document.createElement('button');
       botao.type = 'button';
       botao.className = 'botao';
-      botao.textContent = 'Vou levar';
+      botao.textContent = 'Presentear';
       botao.addEventListener('click', function () { abrirFormulario(p, caixa, acao); });
       acao.appendChild(botao);
     }
@@ -219,7 +231,7 @@
   }
 
   /* ---------------------------------------------------------
-     FORMULÁRIO "VOU LEVAR"
+     PASSO 1: quem está presenteando
      --------------------------------------------------------- */
   function abrirFormulario(p, caixa, acao) {
     acao.innerHTML = '';
@@ -236,7 +248,7 @@
         '<label>Recado <span class="opcional">(opcional)</span></label>' +
         '<textarea name="recado" rows="2" maxlength="200"></textarea>' +
       '</div>' +
-      '<button type="submit" class="botao">Confirmar</button>' +
+      '<button type="submit" class="botao">Continuar para o Pix</button>' +
       '<button type="button" class="botao secundario cancelar">Cancelar</button>';
 
     var aviso = form.querySelector('.aviso');
@@ -266,14 +278,14 @@
 
       var enviar = form.querySelector('button[type="submit"]');
       enviar.disabled = true;
-      enviar.textContent = 'Reservando...';
+      enviar.textContent = 'Guardando...';
 
       try {
         var codigo = await reservar(p, nome, recado);
-        mostrarSucesso(p, caixa, codigo);
+        mostrarPix(p, caixa, codigo);
       } catch (erro) {
         enviar.disabled = false;
-        enviar.textContent = 'Confirmar';
+        enviar.textContent = 'Continuar para o Pix';
         aviso.textContent = erro.message;
         aviso.hidden = false;
         if (erro.recarregar) setTimeout(carregar, 1500);
@@ -328,6 +340,13 @@
         presenteNome: p.nome,
         nome:         nome,
         recado:       recado,
+        valor:        Number(p.preco) || 0,
+        // 'aguardando' = esperando o Pix cair na conta.
+        // Só a administradora muda isso para 'recebido'.
+        status:       'aguardando',
+        // O convidado marca isto ao tocar em "Já fiz o Pix".
+        // É só um aviso: não comprova pagamento nenhum.
+        avisouPix:    false,
         ativa:        true,
         criadoEm:     fs.serverTimestamp(),
       });
@@ -341,13 +360,95 @@
   /* ---------------------------------------------------------
      TELA DE SUCESSO, COM O CÓDIGO
      --------------------------------------------------------- */
+  function mostrarPix(p, caixa, codigo) {
+    var valor  = Number(p.preco) || 0;
+    var cobranca = window.gerarCodigoPix(valor);
+
+    var tela = document.createElement('article');
+    tela.className = 'presente tela-pix';
+    tela.innerHTML =
+      '<div class="presente-corpo largura-total">' +
+        '<h3>Falta só o Pix 💛</h3>' +
+        '<p>Você escolheu <strong class="pix-item"></strong>.</p>' +
+        '<p class="pix-valor"></p>' +
+        '<div class="pix-qr"></div>' +
+        '<p class="rotulo-codigo">Ou copie o código Pix:</p>' +
+        '<p class="pix-codigo"></p>' +
+        '<button type="button" class="botao" data-copiar>Copiar código Pix</button>' +
+        '<p class="presente-descricao pix-ajuda">' +
+          'Abra o aplicativo do seu banco, escolha Pix, aponte para o QR code ' +
+          'ou cole o código. O valor já vai preenchido.' +
+        '</p>' +
+        '<button type="button" class="botao secundario" data-pronto>Já fiz o Pix</button>' +
+        '<p class="presente-descricao">' +
+          'Guardamos este presente para você. Se você não avisar em 24 horas, ' +
+          'ele pode voltar para a lista.' +
+        '</p>' +
+      '</div>';
+
+    tela.querySelector('.pix-item').textContent  = p.nome;
+    tela.querySelector('.pix-valor').textContent = window.formatarReais(valor);
+    tela.querySelector('.pix-codigo').textContent = cobranca || '';
+
+    var qr = window.desenharQrPix(cobranca, 220);
+    if (qr) {
+      qr.setAttribute('role', 'img');
+      qr.setAttribute('aria-label', 'QR code do Pix no valor de ' + window.formatarReais(valor));
+      tela.querySelector('.pix-qr').appendChild(qr);
+    } else {
+      tela.querySelector('.pix-qr').remove();
+    }
+
+    /* ---- Copiar o código ---- */
+    var botaoCopiar = tela.querySelector('[data-copiar]');
+    botaoCopiar.addEventListener('click', async function () {
+      try {
+        await navigator.clipboard.writeText(cobranca);
+      } catch (e) {
+        // Alguns navegadores antigos não deixam copiar sozinho:
+        // então selecionamos o texto para a pessoa copiar na mão.
+        var alvo = tela.querySelector('.pix-codigo');
+        var faixa = document.createRange();
+        faixa.selectNodeContents(alvo);
+        var selecao = window.getSelection();
+        selecao.removeAllRanges();
+        selecao.addRange(faixa);
+      }
+      botaoCopiar.textContent = 'Código copiado ✓';
+      setTimeout(function () { botaoCopiar.textContent = 'Copiar código Pix'; }, 2500);
+    });
+
+    /* ---- "Já fiz o Pix" ---- */
+    tela.querySelector('[data-pronto]').addEventListener('click', async function () {
+      this.disabled = true;
+      this.textContent = 'Anotando...';
+      try { await avisarPagamento(codigo); } catch (e) { console.error(e); }
+      mostrarSucesso(p, tela, codigo);
+    });
+
+    caixa.replaceWith(tela);
+    tela.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    atualizarBlocoDesfazer();
+  }
+
+  /* Marca que o convidado disse ter feito o Pix. Não comprova
+     nada: serve só para a administradora saber onde olhar. */
+  async function avisarPagamento(codigo) {
+    if (!conexao) return;
+    var fs = conexao.fs;
+    await fs.updateDoc(fs.doc(conexao.banco, 'reservas', codigo), { avisouPix: true });
+  }
+
+  /* ---------------------------------------------------------
+     TELA FINAL, COM O CÓDIGO DE DESFAZER
+     --------------------------------------------------------- */
   function mostrarSucesso(p, caixa, codigo) {
     var novo = document.createElement('article');
     novo.className = 'presente reservado';
     novo.innerHTML =
       '<div class="presente-corpo largura-total">' +
         '<h3>Obrigada! 💛</h3>' +
-        '<p>Anotamos que você vai levar <strong></strong>.</p>' +
+        '<p>Anotamos o seu presente: <strong></strong>.</p>' +
         '<p class="rotulo-codigo">Guarde este código:</p>' +
         '<p class="codigo"></p>' +
         '<p class="presente-descricao">Ele serve só para você desfazer sua própria ' +

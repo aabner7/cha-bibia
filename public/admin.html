@@ -68,7 +68,7 @@
       <nav class="abas" id="abas">
         <button type="button" class="aba ativa" data-aba="presentes">Presentes</button>
         <button type="button" class="aba" data-aba="confirmacoes">Confirmações</button>
-        <button type="button" class="aba" data-aba="reservas">Quem leva o quê</button>
+        <button type="button" class="aba" data-aba="reservas">Presentes e Pix</button>
       </nav>
 
       <!-- ---- Presentes ---- -->
@@ -79,6 +79,28 @@
              <strong id="qtd-importar">17</strong> itens que você já tinha montado.</p>
           <button type="button" class="botao" id="botao-importar">Importar lista inicial</button>
         </div>
+
+        <details class="cartao dobravel">
+          <summary><h2>Importar planilha</h2></summary>
+          <p>
+            Suba uma planilha com as colunas <strong>NOME</strong>,
+            <strong>LINK</strong> e <strong>PRECO</strong> na primeira linha.
+          </p>
+          <ul class="lista-simples">
+            <li>Presente que já existe: atualiza o preço e o link.</li>
+            <li>Presente que não existe: é criado.</li>
+            <li>Presente que sumiu da planilha: só é apagado depois que você confirmar.</li>
+          </ul>
+          <p class="aviso" id="aviso-csv" role="alert" hidden></p>
+          <div class="campo">
+            <label for="arquivo-csv">Arquivo da planilha (.csv)</label>
+            <input type="file" id="arquivo-csv" accept=".csv,text/csv">
+            <span class="ajuda">
+              No Excel ou no Google Planilhas, use "Salvar como" ou "Baixar"
+              e escolha CSV.
+            </span>
+          </div>
+        </details>
 
         <details class="cartao dobravel">
           <summary><h2>Adicionar presente</h2></summary>
@@ -108,7 +130,7 @@
       <section id="painel-reservas" hidden>
         <div class="linha-acoes">
           <button type="button" class="botao secundario" data-csv="reservas">
-            Baixar lista em Excel
+            Baixar presentes e Pix em Excel
           </button>
         </div>
         <div id="lista-reservas"></div>
@@ -123,6 +145,8 @@
 
   <script src="js/evento.js"></script>
   <script src="js/firebase-config.js"></script>
+  <script src="js/pix-config.js"></script>
+  <script src="js/pix.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>
