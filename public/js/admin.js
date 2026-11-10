@@ -247,7 +247,26 @@
       return;
     }
 
-    estado.presentes.forEach(function (p) {
+    // Agrupa por categoria, na ordem das abas da planilha.
+    var ordemIds = CATEGORIAS.map(function (c) { return c.id; });
+    var emOrdem = estado.presentes.slice().sort(function (a, b) {
+      var ia = ordemIds.indexOf(a.categoria), ib = ordemIds.indexOf(b.categoria);
+      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);   // sort é estável: a ordem dentro da aba fica
+    });
+    var categoriaAnterior = null;
+
+    emOrdem.forEach(function (p) {
+      if (p.categoria !== categoriaAnterior) {
+        categoriaAnterior = p.categoria;
+        var quantos = estado.presentes.filter(function (x) { return x.categoria === p.categoria; }).length;
+        var cabecalho = document.createElement('h3');
+        cabecalho.className = 'grupo-admin';
+        cabecalho.innerHTML = '<strong></strong> <span></span>';
+        cabecalho.querySelector('strong').textContent = nomeCategoria(p.categoria);
+        cabecalho.querySelector('span').textContent = '· ' + quantos + (quantos === 1 ? ' item' : ' itens');
+        alvo.appendChild(cabecalho);
+      }
+
       var linha = document.createElement('div');
       linha.className = 'linha-admin';
 

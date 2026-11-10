@@ -108,8 +108,20 @@
     narizinho: 'Narizinho', transporte: 'Transporte', boca: 'Higiene bucal',
   };
 
+  // Ordem em que as categorias aparecem (a mesma das abas da planilha).
+  var ORDEM_CATEGORIAS = ['quarto', 'passear', 'soninho', 'vestir', 'higiene',
+                          'fraldas', 'alimentacao', 'outros'];
+  var categoriaAtiva = null;   // a aba que o convidado está vendo
+
+  /* Faixa de botões com as categorias, logo acima da lista. */
+  var faixa = document.createElement('nav');
+  faixa.className = 'abas abas-categorias';
+  faixa.setAttribute('aria-label', 'Categorias de presentes');
+  lista.parentNode.insertBefore(faixa, lista);
+
   function desenhar() {
     lista.innerHTML = '';
+    faixa.innerHTML = '';
 
     var porCategoria = {};
     presentes.forEach(function (p) {
@@ -117,21 +129,43 @@
       (porCategoria[c] = porCategoria[c] || []).push(p);
     });
 
-    Object.keys(porCategoria).forEach(function (c) {
-      var secao = document.createElement('section');
-      secao.className = 'categoria';
-
-      var titulo = document.createElement('h2');
-      titulo.textContent = NOMES_CATEGORIA[c] || c;
-      secao.appendChild(titulo);
-
-      porCategoria[c].forEach(function (p) {
-        secao.appendChild(montarPresente(p));
-      });
-
-      lista.appendChild(secao);
+    var categorias = Object.keys(porCategoria).sort(function (a, b) {
+      var ia = ORDEM_CATEGORIAS.indexOf(a), ib = ORDEM_CATEGORIAS.indexOf(b);
+      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
     });
 
+    // Fica na aba em que a pessoa estava; se ela não existe mais, volta para a primeira.
+    if (categorias.indexOf(categoriaAtiva) === -1) categoriaAtiva = categorias[0] || null;
+    faixa.hidden = categorias.length < 2;
+
+    categorias.forEach(function (c) {
+      var botao = document.createElement('button');
+      botao.type = 'button';
+      botao.className = 'aba' + (c === categoriaAtiva ? ' ativa' : '');
+      botao.textContent = NOMES_CATEGORIA[c] || c;
+      botao.setAttribute('aria-pressed', c === categoriaAtiva ? 'true' : 'false');
+      botao.addEventListener('click', function () {
+        categoriaAtiva = c;
+        desenhar();
+        faixa.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      });
+      faixa.appendChild(botao);
+    });
+
+    if (!categoriaAtiva) return;
+
+    var secao = document.createElement('section');
+    secao.className = 'categoria';
+
+    var titulo = document.createElement('h2');
+    titulo.textContent = NOMES_CATEGORIA[categoriaAtiva] || categoriaAtiva;
+    secao.appendChild(titulo);
+
+    porCategoria[categoriaAtiva].forEach(function (p) {
+      secao.appendChild(montarPresente(p));
+    });
+
+    lista.appendChild(secao);
     atualizarBlocoDesfazer();
   }
 
@@ -469,6 +503,72 @@
     novo.scrollIntoView({ block: 'center', behavior: 'smooth' });
     atualizarBlocoDesfazer();
   }
+
+  /* ---------------------------------------------------------
+     OUTRO VALOR: Pix de um valor que não está na lista
+     ---------------------------------------------------------
+     Nada é guardado no banco: o convidado digita o valor, o
+     código Pix é montado aqui mesmo e o dinheiro cai na sua
+     conta como qualquer Pix. Para saber quem mandou, olhe o
+     extrato do banco.
+     --------------------------------------------------------- */
+  var formValor      = document.getElementById('form-valor');
+  var avisoValor     = document.getElementById('aviso-valor');
+  var resultadoValor = document.getElementById('resultado-valor');
+
+  /* "50", "50,5", "1.250,00" ou "R$ 50" viram números; o que não der, vira 0 */
+  function lerValorDigitado(texto) {
+    var limpo = String(texto || '').replace(/[^0-9,.]/g, '');
+    if (limpo.indexOf(',') !== -1) limpo = limpo.replace(/\./g, '').replace(',', '.');
+    var n = parseFloat(limpo);
+    return isFinite(n) ? Math.round(n * 100) / 100 : 0;
+  }
+
+  formValor.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    avisoValor.hidden = true;
+    resultadoValor.hidden = true;
+
+    var valor = lerValorDigitado(formValor.valor.value);
+    if (valor < 1 || valor > 10000) {
+      avisoValor.textContent = 'Digite um valor entre R$ 1,00 e R$ 10.000,00.';
+      avisoValor.hidden = false;
+      return;
+    }
+
+    var cobranca = window.gerarCodigoPix(valor);
+    document.getElementById('valor-escolhido').textContent = window.formatarReais(valor);
+    document.getElementById('codigo-valor').textContent = cobranca || '';
+
+    var area = document.getElementById('qr-valor');
+    area.innerHTML = '';
+    var qr = window.desenharQrPix(cobranca, 220);
+    if (qr) {
+      qr.setAttribute('role', 'img');
+      qr.setAttribute('aria-label', 'QR code do Pix no valor de ' + window.formatarReais(valor));
+      area.appendChild(qr);
+    }
+
+    resultadoValor.hidden = false;
+    resultadoValor.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+
+  document.getElementById('copiar-valor').addEventListener('click', async function () {
+    var botao = this;
+    var texto = document.getElementById('codigo-valor').textContent;
+    try {
+      await navigator.clipboard.writeText(texto);
+    } catch (e) {
+      // Navegador que não deixa copiar sozinho: seleciona para a pessoa copiar.
+      var faixa = document.createRange();
+      faixa.selectNodeContents(document.getElementById('codigo-valor'));
+      var selecao = window.getSelection();
+      selecao.removeAllRanges();
+      selecao.addRange(faixa);
+    }
+    botao.textContent = 'Código copiado ✓';
+    setTimeout(function () { botao.textContent = 'Copiar código Pix'; }, 2500);
+  });
 
   /* ---------------------------------------------------------
      DESFAZER COM O CÓDIGO
