@@ -124,6 +124,18 @@ O botão **Baixar presentes em Excel** gera um arquivo de conferência (CSV) com
 o que está no site, as quantidades já escolhidas e o que ainda falta. Ele serve
 para olhar e somar, não para subir de volta: a planilha que sobe é a sua.
 
+### Como as categorias aparecem
+
+- **Para os convidados:** botões com o nome de cada categoria ficam no topo da
+  lista, e só os presentes da categoria escolhida aparecem. A ordem é a das abas da
+  sua planilha: Para o quarto, Para passear, Para o soninho, Para vestir, Higiene e
+  banho, Fraldas e Alimentação.
+- **No painel:** a aba **Presentes** mostra um título para cada categoria, com
+  quantos itens ela tem.
+
+A categoria de cada presente vem do nome da aba da planilha. Para mudar um item de
+categoria, mude de aba na planilha e suba de novo, ou use o botão **Editar**.
+
 ### Escolhas "vai levar o presente"
 
 Na aba **Presentes e Pix**, as escolhas de itens sem preço aparecem com o selo

@@ -108,8 +108,20 @@
     narizinho: 'Narizinho', transporte: 'Transporte', boca: 'Higiene bucal',
   };
 
+  // Ordem em que as categorias aparecem (a mesma das abas da planilha).
+  var ORDEM_CATEGORIAS = ['quarto', 'passear', 'soninho', 'vestir', 'higiene',
+                          'fraldas', 'alimentacao', 'outros'];
+  var categoriaAtiva = null;   // a aba que o convidado está vendo
+
+  /* Faixa de botões com as categorias, logo acima da lista. */
+  var faixa = document.createElement('nav');
+  faixa.className = 'abas abas-categorias';
+  faixa.setAttribute('aria-label', 'Categorias de presentes');
+  lista.parentNode.insertBefore(faixa, lista);
+
   function desenhar() {
     lista.innerHTML = '';
+    faixa.innerHTML = '';
 
     var porCategoria = {};
     presentes.forEach(function (p) {
@@ -117,21 +129,43 @@
       (porCategoria[c] = porCategoria[c] || []).push(p);
     });
 
-    Object.keys(porCategoria).forEach(function (c) {
-      var secao = document.createElement('section');
-      secao.className = 'categoria';
-
-      var titulo = document.createElement('h2');
-      titulo.textContent = NOMES_CATEGORIA[c] || c;
-      secao.appendChild(titulo);
-
-      porCategoria[c].forEach(function (p) {
-        secao.appendChild(montarPresente(p));
-      });
-
-      lista.appendChild(secao);
+    var categorias = Object.keys(porCategoria).sort(function (a, b) {
+      var ia = ORDEM_CATEGORIAS.indexOf(a), ib = ORDEM_CATEGORIAS.indexOf(b);
+      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
     });
 
+    // Fica na aba em que a pessoa estava; se ela não existe mais, volta para a primeira.
+    if (categorias.indexOf(categoriaAtiva) === -1) categoriaAtiva = categorias[0] || null;
+    faixa.hidden = categorias.length < 2;
+
+    categorias.forEach(function (c) {
+      var botao = document.createElement('button');
+      botao.type = 'button';
+      botao.className = 'aba' + (c === categoriaAtiva ? ' ativa' : '');
+      botao.textContent = NOMES_CATEGORIA[c] || c;
+      botao.setAttribute('aria-pressed', c === categoriaAtiva ? 'true' : 'false');
+      botao.addEventListener('click', function () {
+        categoriaAtiva = c;
+        desenhar();
+        faixa.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      });
+      faixa.appendChild(botao);
+    });
+
+    if (!categoriaAtiva) return;
+
+    var secao = document.createElement('section');
+    secao.className = 'categoria';
+
+    var titulo = document.createElement('h2');
+    titulo.textContent = NOMES_CATEGORIA[categoriaAtiva] || categoriaAtiva;
+    secao.appendChild(titulo);
+
+    porCategoria[categoriaAtiva].forEach(function (p) {
+      secao.appendChild(montarPresente(p));
+    });
+
+    lista.appendChild(secao);
     atualizarBlocoDesfazer();
   }
 

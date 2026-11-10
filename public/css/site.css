@@ -555,6 +555,25 @@ a:hover { color: var(--cor-destaque-escuro); }
   color: var(--cor-texto-botao);
 }
 
+/* Abas de categoria na lista dos convidados: quebram em várias linhas,
+   para todas as categorias aparecerem sem precisar rolar de lado. */
+.abas-categorias {
+  flex-wrap: wrap;
+  overflow-x: visible;
+  gap: 0.4rem;
+}
+.abas-categorias[hidden] { display: none; }
+.abas-categorias .aba { flex: 0 0 auto; }
+
+/* Título de cada categoria na lista do painel */
+.grupo-admin {
+  font-size: var(--tamanho-texto);
+  margin: var(--espaco) 0 var(--espaco-pequeno);
+  padding-left: 0.2rem;
+  color: var(--cor-destaque);
+}
+.grupo-admin span { font-family: var(--fonte-texto); font-weight: 400; color: var(--cor-texto-suave, var(--cor-texto)); }
+
 /* ----- Linhas de dados ----- */
 .linha-admin {
   display: flex;
