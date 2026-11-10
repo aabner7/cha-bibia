@@ -274,6 +274,8 @@
         }
       });
 
+      /* 1ª passada: o nome de cada linha (já com "opção N" nas mescladas). */
+      var candidatos = [];
       for (var i = 1; i < linhas.length; i++) {
         var linha = linhas[i] || [];
         var nome = String(linha[col.nome] == null ? '' : linha[col.nome]).replace(/\s+/g, ' ').trim();
@@ -284,12 +286,29 @@
           nome = String((linhas[g.primeira] || [])[col.nome] || '').replace(/\s+/g, ' ').trim();
           if (nome) nome += ' (opção ' + (i - g.primeira + 1) + ')';
         }
-        if (!nome) continue;
+        if (nome) candidatos.push({ nome: nome, linha: linha });
+      }
+
+      /* Mesmo nome em mais de uma linha da MESMA aba = opções do mesmo item
+         (cada uma com o seu link e preço): vira "Nome (opção 1)", "(opção 2)". */
+      var repeticoes = {}, contadas = {};
+      candidatos.forEach(function (c) {
+        var k = semAcento(c.nome);
+        repeticoes[k] = (repeticoes[k] || 0) + 1;
+      });
+
+      candidatos.forEach(function (c) {
+        var nome = c.nome, linha = c.linha;
+        var k = semAcento(nome);
+        if (repeticoes[k] > 1) {
+          contadas[k] = (contadas[k] || 0) + 1;
+          nome += ' (opção ' + contadas[k] + ')';
+        }
 
         var chave = semAcento(nome);
         if (vistos[chave]) {
-          avisos.push('"' + nome + '" aparece mais de uma vez; só a primeira foi usada.');
-          continue;
+          avisos.push('"' + nome + '" aparece em mais de uma aba; só o primeiro foi usado.');
+          return;
         }
         vistos[chave] = true;
 
@@ -309,7 +328,7 @@
           foto: '',
           ordem: presentes.length,
         });
-      }
+      });
     });
 
     return { presentes: presentes, avisos: avisos };

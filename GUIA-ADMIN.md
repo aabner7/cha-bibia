@@ -107,8 +107,14 @@ Dois cuidados:
 - **Mudou o nome de um item na planilha?** O site entende como outro item:
   cria o novo e pergunta se apaga o antigo. Para corrigir um erro de digitação
   sem perder as escolhas já feitas, corrija direto no site (botão **Editar**).
-- **Item sem preço** aparece como "Em breve" e ninguém consegue escolher. Se
-  vir isso depois de importar, falta preencher o preço na planilha.
+- **Item sem preço** não tem Pix. No lugar do botão "Presentear", o convidado vê
+  **"Vou levar este"**: ele deixa o nome, o site marca o item como escolhido (para
+  ninguém repetir) e avisa que ele mesmo compra e leva no chá. É o caso das
+  roupinhas. Se você esquecer de preencher o preço de um item que deveria ter Pix,
+  ele também vira "Vou levar este"; depois de importar, o site diz quantos itens
+  ficaram sem preço, então vale conferir esse número.
+- **Duas linhas com o mesmo nome na mesma aba** (como os lençóis) viram
+  "Nome (opção 1)" e "Nome (opção 2)", cada uma com o seu link e preço.
 
 Os links grandes da Amazon e do Mercado Livre são encurtados sozinhos: o site
 tira os códigos de rastreio que não mudam o produto e mantém o que escolhe
@@ -117,6 +123,14 @@ tamanho, cor ou vendedor. Os links curtos (`link.amazon/...`) ficam como estão.
 O botão **Baixar presentes em Excel** gera um arquivo de conferência (CSV) com
 o que está no site, as quantidades já escolhidas e o que ainda falta. Ele serve
 para olhar e somar, não para subir de volta: a planilha que sobe é a sua.
+
+### Escolhas "vai levar o presente"
+
+Na aba **Presentes e Pix**, as escolhas de itens sem preço aparecem com o selo
+**vai levar o presente**. Elas não têm valor, não entram nos totais de dinheiro,
+não geram o aviso de "sem Pix há mais de 24 horas" e não têm botão "Recebi o Pix".
+Se a pessoa desistir, ela mesma desfaz com o código; e você também pode tocar em
+**Liberar item**. No arquivo baixado, a situação aparece como "Vai levar o presente".
 
 ### Acrescentar um presente
 

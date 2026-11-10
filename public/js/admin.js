@@ -159,10 +159,7 @@
   async function carregarDemonstracao() {
     var arquivo = await fetch('dados/presentes-iniciais.json').then(function (r) { return r.json(); });
     estado.presentes = arquivo.presentes.map(function (p, i) {
-      // No modo demonstração inventamos um preço, só para a tela
-      // não ficar toda zerada antes de você importar a planilha.
-      return Object.assign({ id: 'demo-' + i, ordem: i, disponivel: p.total }, p,
-                           { preco: p.preco || [39.9, 89.9, 129.9, 249][i % 4] });
+      return Object.assign({ id: 'demo-' + i, ordem: i, disponivel: p.total }, p);
     });
     // Dois exemplos para a tela não ficar vazia
     estado.confirmacoes = [
@@ -174,7 +171,7 @@
       return estado.presentes.find(function (p) { return p.nome === nome; }) || estado.presentes[0];
     }
     var fralda = achar('Fralda M Pampers'), escova = achar('Escova/pente de cabelo'),
-        almofada = achar('Almofada de amamentação');
+        almofada = achar('Almofada de amamentação'), roupinha = achar('Body manga longa RN');
     estado.reservas = [
       { id: 'K7P2MQ', nome: 'Ana Souza', presenteNome: fralda.nome,
         presenteId: fralda.id, recado: 'Com todo carinho!', valor: fralda.preco,
@@ -185,8 +182,11 @@
       { id: 'R2KDHN', nome: 'João Ribeiro', presenteNome: almofada.nome,
         presenteId: almofada.id, recado: 'Parabéns aos dois!', valor: almofada.preco,
         status: 'recebido', avisouPix: true, ativa: true, criadoEm: ontem },
+      { id: 'M9VQCE', nome: 'Paula Andrade', presenteNome: roupinha.nome,
+        presenteId: roupinha.id, recado: '', valor: 0,
+        status: 'aguardando', avisouPix: false, ativa: true, criadoEm: ontem },
     ];
-    [fralda, escova, almofada].forEach(function (alvo) {
+    [fralda, escova, almofada, roupinha].forEach(function (alvo) {
       if (alvo.disponivel > 0) alvo.disponivel -= 1;
     });
   }
@@ -314,7 +314,8 @@
       '<div class="campo">' +
         '<label>Preço do produto (R$)</label>' +
         '<input type="number" name="preco" min="0" step="0.01" value="0" required>' +
-        '<span class="ajuda">É este valor que vai no Pix do convidado.</span>' +
+        '<span class="ajuda">É este valor que vai no Pix do convidado. Deixe 0 se o presente ' +
+          'não é por Pix: o convidado só avisa que vai levar.</span>' +
       '</div>' +
       '<div class="campo">' +
         '<label>Quantidade que você precisa</label>' +
@@ -558,8 +559,10 @@
     }
 
     // Quem está esperando há mais tempo aparece primeiro.
-    var pendentes = estado.reservas.filter(function (r) { return r.status !== 'recebido'; });
-    var recebidas = estado.reservas.filter(function (r) { return r.status === 'recebido'; });
+    // Presente sem preço não tem Pix: o convidado só avisou que vai levar.
+    var pendentes = estado.reservas.filter(function (r) { return !semPix(r) && r.status !== 'recebido'; });
+    var recebidas = estado.reservas.filter(function (r) { return !semPix(r) && r.status === 'recebido'; });
+    var vaiLevar  = estado.reservas.filter(semPix);
 
     var atrasadas = pendentes.filter(estaAtrasada);
 
@@ -575,21 +578,27 @@
       alvo.appendChild(aviso);
     }
 
-    pendentes.concat(recebidas).forEach(function (r) {
+    pendentes.concat(recebidas, vaiLevar).forEach(function (r) {
       alvo.appendChild(montarReserva(r));
     });
   }
 
+  /* Escolha de presente sem preço: não tem Pix, o convidado vai levar. */
+  function semPix(r) {
+    return !(Number(r.valor) > 0);
+  }
+
   /* Passou de 24 horas sem o Pix cair? */
   function estaAtrasada(r) {
-    if (r.status === 'recebido') return false;
+    if (r.status === 'recebido' || semPix(r)) return false;
     var quando = r.criadoEm && r.criadoEm.toDate ? r.criadoEm.toDate() : new Date(r.criadoEm);
     if (isNaN(quando)) return false;
     return (Date.now() - quando.getTime()) > 24 * 60 * 60 * 1000;
   }
 
   function montarReserva(r) {
-    var recebido = r.status === 'recebido';
+    var levar = semPix(r);
+    var recebido = !levar && r.status === 'recebido';
     var atrasada = estaAtrasada(r);
 
     var linha = document.createElement('div');
@@ -606,10 +615,10 @@
     linha.querySelector('.linha-nome').textContent = r.presenteNome;
     linha.querySelector('.linha-meta').textContent = [
       r.nome,
-      window.formatarReais(r.valor || 0),
+      levar ? null : window.formatarReais(r.valor || 0),
       'código ' + r.id,
       formatarData(r.criadoEm),
-    ].join(' · ');
+    ].filter(Boolean).join(' · ');
 
     var recado = linha.querySelector('.linha-recado');
     if (r.recado) recado.textContent = '“' + r.recado + '”';
@@ -617,7 +626,9 @@
 
     /* ---- Selo de situação ---- */
     var selo = linha.querySelector('.selo-status');
-    if (recebido) {
+    if (levar) {
+      selo.textContent = 'vai levar o presente';
+    } else if (recebido) {
       selo.textContent = '✓ recebido';
       selo.classList.add('ok');
     } else if (atrasada) {
@@ -633,12 +644,14 @@
     var botoes = linha.querySelector('.linha-botoes');
 
     if (!recebido) {
-      var marcar = document.createElement('button');
-      marcar.type = 'button';
-      marcar.className = 'botao-texto';
-      marcar.textContent = 'Recebi o Pix';
-      marcar.addEventListener('click', function () { marcarRecebido(r, true); });
-      botoes.appendChild(marcar);
+      if (!levar) {
+        var marcar = document.createElement('button');
+        marcar.type = 'button';
+        marcar.className = 'botao-texto';
+        marcar.textContent = 'Recebi o Pix';
+        marcar.addEventListener('click', function () { marcarRecebido(r, true); });
+        botoes.appendChild(marcar);
+      }
 
       var liberar = document.createElement('button');
       liberar.type = 'button';
@@ -748,8 +761,9 @@
                  'Recado', 'Código', 'Escolhido em']];
       estado.reservas.forEach(function (r) {
         linhas.push([
-          r.presenteNome, r.nome, numeroBR(r.valor),
-          r.status === 'recebido' ? 'Recebido'
+          r.presenteNome, r.nome, semPix(r) ? '' : numeroBR(r.valor),
+          semPix(r) ? 'Vai levar o presente'
+            : r.status === 'recebido' ? 'Recebido'
             : (r.avisouPix ? 'Avisou que pagou' : 'Aguardando Pix'),
           r.recado || '', r.id, formatarData(r.criadoEm),
         ]);
@@ -982,7 +996,8 @@
       }
       var semPreco = daPlanilha.filter(function (x) { return !(x.preco > 0); }).length;
       mostrarAvisoPlanilha('ok', 'Pronto: ' + resumo.join(', ') + '.' +
-        (semPreco ? ' ' + semPreco + ' item(ns) estão sem preço e aparecem como "Em breve" para os convidados.' : '') +
+        (semPreco ? ' ' + semPreco + ' item(ns) estão sem preço: para eles não tem Pix, ' +
+                    'o convidado só avisa que vai levar.' : '') +
         (avisosDaLeitura.length ? ' Atenção: ' + avisosDaLeitura.join(' ') : ''));
 
     } catch (erro) {

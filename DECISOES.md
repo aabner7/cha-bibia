@@ -96,4 +96,8 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 61 | Só links `http`/`https` são aceitos | Impede que uma célula com outro tipo de endereço vire um link perigoso no site. |
 | 62 | Item sem preço aparece como "Em breve" e o painel avisa quantos ficaram assim | Evita que alguém escolha um presente sem Pix com valor definido. |
 | 63 | Corrigido: "Importar lista inicial" agora leva também o preço | Antes o botão cadastrava os itens sem preço. |
-
+| 64 | Presente sem preço virou "Vou levar este": sem Pix, o convidado só deixa o nome e o item é marcado como escolhido | As roupinhas não terão preço; o convidado compra e leva, e a lista continua evitando presentes repetidos. |
+| 65 | A escolha sem preço é guardada com valor 0, usando o mesmo desenho do banco e as mesmas regras de segurança | Não foi preciso mexer nas regras do banco nem publicar nada novo nelas. |
+| 66 | No painel, escolhas sem preço têm selo próprio e ficam fora dos totais de dinheiro, do aviso das 24 horas e do botão "Recebi o Pix" | Senão elas apareceriam como Pix atrasado, que não existe para esses itens. |
+| 67 | Mesmo nome em mais de uma linha da mesma aba vira "Nome (opção 1)", "(opção 2)" (antes só valia para células mescladas) | A planilha nova trouxe os lençóis em linhas separadas; o site descartava a segunda opção. |
+| 68 | A demonstração do painel deixou de inventar preços para itens sem preço | Para você ver na demonstração o comportamento real de "vou levar". |
