@@ -100,9 +100,12 @@
      DESENHAR A LISTA NA TELA
      --------------------------------------------------------- */
   var NOMES_CATEGORIA = {
-    quarto: 'Quarto', banho: 'Banho', pele: 'Pele', troca: 'Hora da troca',
-    cuidados: 'Cabelo e unhas', narizinho: 'Narizinho', transporte: 'Transporte',
-    alimentacao: 'Alimentação', boca: 'Higiene bucal', outros: 'Outros',
+    quarto: 'Para o quarto', passear: 'Para passear', soninho: 'Para o soninho',
+    vestir: 'Para vestir', higiene: 'Higiene e banho', fraldas: 'Fraldas',
+    alimentacao: 'Alimentação', outros: 'Outros',
+    // nomes antigos, caso sobre algum presente cadastrado antes da planilha
+    banho: 'Banho', pele: 'Pele', troca: 'Hora da troca', cuidados: 'Cabelo e unhas',
+    narizinho: 'Narizinho', transporte: 'Transporte', boca: 'Higiene bucal',
   };
 
   function desenhar() {
@@ -212,16 +215,11 @@
       marcado.className = 'etiqueta-marcado';
       marcado.textContent = '✓ Você já escolheu este';
       acao.appendChild(marcado);
-    } else if (!esgotado && !(p.preco > 0)) {
-      var semPreco = document.createElement('p');
-      semPreco.className = 'presente-descricao';
-      semPreco.textContent = 'Em breve.';
-      acao.appendChild(semPreco);
     } else if (!esgotado) {
       var botao = document.createElement('button');
       botao.type = 'button';
       botao.className = 'botao';
-      botao.textContent = 'Presentear';
+      botao.textContent = p.preco > 0 ? 'Presentear' : 'Vou levar este';
       botao.addEventListener('click', function () { abrirFormulario(p, caixa, acao); });
       acao.appendChild(botao);
     }
@@ -238,8 +236,12 @@
 
     var form = document.createElement('form');
     form.className = 'form-marcar';
+    var comPix = p.preco > 0;
     form.innerHTML =
       '<p class="aviso erro" hidden></p>' +
+      (comPix ? '' :
+        '<p class="presente-descricao">Este presente não é por Pix: você mesmo ' +
+        'compra e leva no chá. Só precisamos do seu nome para ninguém repetir.</p>') +
       '<div class="campo">' +
         '<label>Seu nome</label>' +
         '<input type="text" name="nome" maxlength="80" autocomplete="name" required>' +
@@ -248,7 +250,8 @@
         '<label>Recado <span class="opcional">(opcional)</span></label>' +
         '<textarea name="recado" rows="2" maxlength="200"></textarea>' +
       '</div>' +
-      '<button type="submit" class="botao">Continuar para o Pix</button>' +
+      '<button type="submit" class="botao">' +
+        (comPix ? 'Continuar para o Pix' : 'Confirmar que vou levar') + '</button>' +
       '<button type="button" class="botao secundario cancelar">Cancelar</button>';
 
     var aviso = form.querySelector('.aviso');
@@ -282,10 +285,11 @@
 
       try {
         var codigo = await reservar(p, nome, recado);
-        mostrarPix(p, caixa, codigo);
+        if (comPix) mostrarPix(p, caixa, codigo);
+        else mostrarSucesso(p, caixa, codigo, true);
       } catch (erro) {
         enviar.disabled = false;
-        enviar.textContent = 'Continuar para o Pix';
+        enviar.textContent = comPix ? 'Continuar para o Pix' : 'Confirmar que vou levar';
         aviso.textContent = erro.message;
         aviso.hidden = false;
         if (erro.recarregar) setTimeout(carregar, 1500);
@@ -442,13 +446,17 @@
   /* ---------------------------------------------------------
      TELA FINAL, COM O CÓDIGO DE DESFAZER
      --------------------------------------------------------- */
-  function mostrarSucesso(p, caixa, codigo) {
+  function mostrarSucesso(p, caixa, codigo, semPix) {
     var novo = document.createElement('article');
     novo.className = 'presente reservado';
     novo.innerHTML =
       '<div class="presente-corpo largura-total">' +
         '<h3>Obrigada! 💛</h3>' +
-        '<p>Anotamos o seu presente: <strong></strong>.</p>' +
+        (semPix
+          ? '<p>Anotamos que você vai levar: <strong></strong>.</p>' +
+            '<p class="presente-descricao">Você mesmo compra e leva no chá. ' +
+            'Não precisa pagar nada por aqui.</p>'
+          : '<p>Anotamos o seu presente: <strong></strong>.</p>') +
         '<p class="rotulo-codigo">Guarde este código:</p>' +
         '<p class="codigo"></p>' +
         '<p class="presente-descricao">Ele serve só para você desfazer sua própria ' +

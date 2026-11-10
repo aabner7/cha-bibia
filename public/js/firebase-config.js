@@ -18,12 +18,12 @@
    ============================================================ */
 
 window.FIREBASE_CONFIG = {
-  apiKey:            'COLE_AQUI',
-  authDomain:        'COLE_AQUI',
-  projectId:         'COLE_AQUI',
-  storageBucket:     'COLE_AQUI',
-  messagingSenderId: 'COLE_AQUI',
-  appId:             'COLE_AQUI',
+  apiKey: "AIzaSyAm5qE8HlVScxTh-wiD-9UrGsGrumjI9DU",
+  authDomain: "cha-da-bibia.firebaseapp.com",
+  projectId: "cha-da-bibia",
+  storageBucket: "cha-da-bibia.firebasestorage.app",
+  messagingSenderId: "559750667475",
+  appId: "1:559750667475:web:0fffc4abf47d18ab7dc826"
 };
 
 /* Daqui para baixo não precisa mexer. ---------------------- */

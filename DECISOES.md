@@ -82,3 +82,22 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 52 | A exportação de presentes usa as mesmas colunas NOME, LINK e PRECO | Dá para baixar, corrigir no Excel e subir de volta, sem montar planilha do zero. |
 | 53 | Valores no CSV saem com vírgula decimal | É assim que o Excel em português entende como dinheiro e consegue somar. |
 | 54 | Marcação `v1` no Git antes de começar | Ponto de retorno, caso a mudança para Pix precise ser desfeita. |
+
+## Etapa F — planilha .xlsx no lugar do CSV
+
+| # | Decisão | Por quê |
+|---|---------|---------|
+| 55 | O painel passou a receber o arquivo `.xlsx` da própria lista de presentes (uma aba por categoria) e o envio de CSV foi retirado | É o arquivo que você mantém e organiza; assim não precisa converter nada. |
+| 56 | O arquivo é lido dentro do navegador, por um leitor próprio e pequeno (`js/leitor-xlsx.js`), sem biblioteca de terceiros | Mantém o site leve, sem peça externa para ficar desatualizada, e o arquivo não sai do seu aparelho. |
+| 57 | O nome da aba decide a seção do site; seções antigas (Banho, Pele...) foram trocadas pelas 7 da planilha | A sua organização por abas passa a ser a organização que o convidado vê. |
+| 58 | Preço de fórmula é lido pelo valor que o Excel mostra | Na planilha o preço vem de uma fórmula; o valor calculado é o que você vê na tela. |
+| 59 | Nome mesclado em duas linhas vira "Nome (opção 1)" e "(opção 2)" | O site identifica o presente pelo nome; sem diferenciar, o segundo lençol seria tratado como repetido e descartado. |
+| 60 | Links da Amazon e do Mercado Livre perdem os códigos de rastreio, mas mantêm o que escolhe variação (tamanho, cor, vendedor) | Os endereços colados do navegador têm centenas de letras de rastreio; limpar deixa o link curto sem trocar o produto do preço. |
+| 61 | Só links `http`/`https` são aceitos | Impede que uma célula com outro tipo de endereço vire um link perigoso no site. |
+| 62 | Item sem preço aparece como "Em breve" e o painel avisa quantos ficaram assim | Evita que alguém escolha um presente sem Pix com valor definido. |
+| 63 | Corrigido: "Importar lista inicial" agora leva também o preço | Antes o botão cadastrava os itens sem preço. |
+| 64 | Presente sem preço virou "Vou levar este": sem Pix, o convidado só deixa o nome e o item é marcado como escolhido | As roupinhas não terão preço; o convidado compra e leva, e a lista continua evitando presentes repetidos. |
+| 65 | A escolha sem preço é guardada com valor 0, usando o mesmo desenho do banco e as mesmas regras de segurança | Não foi preciso mexer nas regras do banco nem publicar nada novo nelas. |
+| 66 | No painel, escolhas sem preço têm selo próprio e ficam fora dos totais de dinheiro, do aviso das 24 horas e do botão "Recebi o Pix" | Senão elas apareceriam como Pix atrasado, que não existe para esses itens. |
+| 67 | Mesmo nome em mais de uma linha da mesma aba vira "Nome (opção 1)", "(opção 2)" (antes só valia para células mescladas) | A planilha nova trouxe os lençóis em linhas separadas; o site descartava a segunda opção. |
+| 68 | A demonstração do painel deixou de inventar preços para itens sem preço | Para você ver na demonstração o comportamento real de "vou levar". |
