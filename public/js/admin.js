@@ -25,16 +25,14 @@
   };
 
   var CATEGORIAS = [
-    { id: 'quarto',     nome: 'Quarto' },
-    { id: 'transporte', nome: 'Transporte' },
+    { id: 'quarto',      nome: 'Para o quarto' },
+    { id: 'passear',     nome: 'Para passear' },
+    { id: 'soninho',     nome: 'Para o soninho' },
+    { id: 'vestir',      nome: 'Para vestir' },
+    { id: 'higiene',     nome: 'Higiene e banho' },
+    { id: 'fraldas',     nome: 'Fraldas' },
     { id: 'alimentacao', nome: 'Alimentação' },
-    { id: 'banho',      nome: 'Banho' },
-    { id: 'pele',       nome: 'Pele' },
-    { id: 'troca',      nome: 'Hora da troca' },
-    { id: 'cuidados',   nome: 'Cabelo e unhas' },
-    { id: 'narizinho',  nome: 'Narizinho' },
-    { id: 'boca',       nome: 'Higiene bucal' },
-    { id: 'outros',     nome: 'Outros' },
+    { id: 'outros',      nome: 'Outros' },
   ];
 
   function nomeCategoria(id) {
@@ -172,20 +170,24 @@
       { id: 'd2', nome: 'Carla Medeiros', pessoas: 1, telefone: '',                criadoEm: new Date() },
     ];
     var ontem = new Date(Date.now() - 30 * 60 * 60 * 1000); // 30 horas atrás
+    function achar(nome) {
+      return estado.presentes.find(function (p) { return p.nome === nome; }) || estado.presentes[0];
+    }
+    var fralda = achar('Fralda M Pampers'), escova = achar('Escova/pente de cabelo'),
+        almofada = achar('Almofada de amamentação');
     estado.reservas = [
-      { id: 'K7P2MQ', nome: 'Ana Souza', presenteNome: 'Fralda Pampers RN Premium Care',
-        presenteId: 'demo-5', recado: 'Com todo carinho!', valor: 89.9,
+      { id: 'K7P2MQ', nome: 'Ana Souza', presenteNome: fralda.nome,
+        presenteId: fralda.id, recado: 'Com todo carinho!', valor: fralda.preco,
         status: 'aguardando', avisouPix: true, ativa: true, criadoEm: new Date() },
-      { id: 'T4XBWM', nome: 'Carla Medeiros', presenteNome: 'Escova e pente Buba',
-        presenteId: 'demo-8', recado: '', valor: 39.9,
+      { id: 'T4XBWM', nome: 'Carla Medeiros', presenteNome: escova.nome,
+        presenteId: escova.id, recado: '', valor: escova.preco,
         status: 'aguardando', avisouPix: false, ativa: true, criadoEm: ontem },
-      { id: 'R2KDHN', nome: 'João Ribeiro', presenteNome: 'Almofada de amamentação',
-        presenteId: 'demo-14', recado: 'Parabéns aos dois!', valor: 129.9,
+      { id: 'R2KDHN', nome: 'João Ribeiro', presenteNome: almofada.nome,
+        presenteId: almofada.id, recado: 'Parabéns aos dois!', valor: almofada.preco,
         status: 'recebido', avisouPix: true, ativa: true, criadoEm: ontem },
     ];
-    ['demo-5', 'demo-8', 'demo-14'].forEach(function (id) {
-      var alvo = estado.presentes.find(function (p) { return p.id === id; });
-      if (alvo && alvo.disponivel > 0) alvo.disponivel -= 1;
+    [fralda, escova, almofada].forEach(function (alvo) {
+      if (alvo.disponivel > 0) alvo.disponivel -= 1;
     });
   }
 
@@ -494,6 +496,7 @@
         var novo = {
           nome: p.nome, categoria: p.categoria, total: p.total,
           disponivel: p.total, descricao: p.descricao || '',
+          preco: p.preco || 0,
           link: p.link || '', foto: p.foto || '', ordem: i,
         };
         if (modoDemonstracao) {
@@ -820,68 +823,19 @@
 
 
   /* =========================================================
-     6. IMPORTAR A LISTA DE UMA PLANILHA (CSV)
+     6. IMPORTAR A LISTA DE UMA PLANILHA (.xlsx)
      ---------------------------------------------------------
-     A planilha precisa ter uma linha de títulos com as colunas
-     NOME, LINK e PRECO (em qualquer ordem). Colunas a mais,
-     como CATEGORIA ou QUANTIDADE, são aproveitadas se existirem
-     e ignoradas se não existirem.
+     A planilha é a do Excel / Google Planilhas, com uma aba por
+     categoria e as colunas Nome, Link, Preço e Quantidade
+     (quem lê o arquivo é o js/leitor-xlsx.js).
 
      O que acontece com cada linha:
-       - presente que já existe (mesmo nome)  -> atualiza preço e link
+       - presente que já existe (mesmo nome)  -> atualiza preço,
+                                                 link, categoria e quantidade
        - presente que não existe              -> é criado
        - presente que sumiu da planilha       -> só é apagado depois
                                                  de você confirmar
      ========================================================= */
-
-  /* Lê um texto CSV e devolve uma lista de linhas.
-     Entende tanto ";" quanto "," como separador, e respeita
-     aspas, porque nome de produto costuma ter vírgula. */
-  function lerCSV(texto) {
-    texto = texto.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
-
-    var primeira = texto.split('\n')[0] || '';
-    var separador = (primeira.split(';').length > primeira.split(',').length) ? ';' : ',';
-
-    var linhas = [], campo = '', linha = [], dentroDeAspas = false;
-
-    for (var i = 0; i < texto.length; i++) {
-      var c = texto[i];
-
-      if (dentroDeAspas) {
-        if (c === '"' && texto[i + 1] === '"') { campo += '"'; i++; }
-        else if (c === '"') { dentroDeAspas = false; }
-        else { campo += c; }
-      } else if (c === '"') {
-        dentroDeAspas = true;
-      } else if (c === separador) {
-        linha.push(campo); campo = '';
-      } else if (c === '\n') {
-        linha.push(campo); linhas.push(linha); linha = []; campo = '';
-      } else {
-        campo += c;
-      }
-    }
-    linha.push(campo);
-    if (linha.length > 1 || linha[0].trim() !== '') linhas.push(linha);
-
-    return linhas.filter(function (l) {
-      return l.some(function (c) { return String(c).trim() !== ''; });
-    });
-  }
-
-  /* "R$ 1.234,50" ou "1234.50" viram o número 1234.5 */
-  function lerPreco(texto) {
-    var limpo = String(texto || '').replace(/[^0-9,.-]/g, '').trim();
-    if (!limpo) return 0;
-
-    // Se tem vírgula, ela é a casa decimal (jeito brasileiro).
-    if (limpo.indexOf(',') !== -1) {
-      limpo = limpo.replace(/\./g, '').replace(',', '.');
-    }
-    var n = parseFloat(limpo);
-    return isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : 0;
-  }
 
   /* Deixa o nome comparável: sem acento, sem maiúscula,
      sem espaço sobrando. Assim "Berço " casa com "berco". */
@@ -893,91 +847,50 @@
       .toLowerCase();
   }
 
-  var entradaCSV = document.getElementById('arquivo-csv');
-  var avisoCSV   = document.getElementById('aviso-csv');
+  var entradaPlanilha = document.getElementById('arquivo-planilha');
+  var avisoPlanilha   = document.getElementById('aviso-planilha');
 
-  entradaCSV.addEventListener('change', function () {
-    var arquivo = entradaCSV.files && entradaCSV.files[0];
+  entradaPlanilha.addEventListener('change', async function () {
+    var arquivo = entradaPlanilha.files && entradaPlanilha.files[0];
     if (!arquivo) return;
 
-    var leitor = new FileReader();
-    leitor.onload = function () {
-      try {
-        processarCSV(String(leitor.result));
-      } catch (e) {
-        console.error(e);
-        mostrarAvisoCSV('erro', 'Não consegui ler a planilha: ' + e.message);
-      }
-      entradaCSV.value = ''; // permite subir o mesmo arquivo de novo
-    };
-    leitor.onerror = function () {
-      mostrarAvisoCSV('erro', 'Não consegui abrir o arquivo.');
-    };
-    leitor.readAsText(arquivo, 'UTF-8');
+    if (!/\.xlsx$/i.test(arquivo.name)) {
+      mostrarAvisoPlanilha('erro', 'Este arquivo não é .xlsx. No Google Planilhas, use ' +
+        'Arquivo > Fazer download > Microsoft Excel (.xlsx).');
+      entradaPlanilha.value = '';
+      return;
+    }
+
+    try {
+      mostrarAvisoPlanilha('ok', 'Lendo a planilha...');
+      var lida = await window.lerPlanilhaDePresentes(await arquivo.arrayBuffer());
+      await processarPlanilha(lida.presentes, lida.avisos);
+    } catch (e) {
+      console.error(e);
+      mostrarAvisoPlanilha('erro', 'Não consegui ler a planilha: ' + e.message);
+    }
+    entradaPlanilha.value = ''; // permite subir o mesmo arquivo de novo
   });
 
-  function mostrarAvisoCSV(tipo, texto) {
-    avisoCSV.className = 'aviso ' + (tipo === 'erro' ? 'erro' : 'ok');
-    avisoCSV.textContent = texto;
-    avisoCSV.hidden = false;
+  function mostrarAvisoPlanilha(tipo, texto) {
+    avisoPlanilha.className = 'aviso ' + (tipo === 'erro' ? 'erro' : 'ok');
+    avisoPlanilha.textContent = texto;
+    avisoPlanilha.hidden = false;
   }
 
-  async function processarCSV(conteudo) {
-    var linhas = lerCSV(conteudo);
-    if (linhas.length < 2) {
-      mostrarAvisoCSV('erro', 'A planilha parece vazia. Ela precisa de uma linha ' +
-                              'de títulos e pelo menos um presente.');
+  async function processarPlanilha(itens, avisosDaLeitura) {
+    if (!itens.length) {
+      mostrarAvisoPlanilha('erro', 'Não encontrei nenhum presente com nome preenchido. ' +
+        'Cada aba precisa de uma primeira linha com os títulos (Nome, Link, Preço, Quantidade).');
       return;
     }
 
-    /* ---- Descobrir em que coluna está cada coisa ---- */
-    var titulos = linhas[0].map(function (t) { return chaveDoNome(t); });
-    var col = {
-      nome:      titulos.indexOf('nome'),
-      link:      titulos.indexOf('link'),
-      preco:     titulos.findIndex(function (t) { return t === 'preco' || t === 'preço' || t === 'valor'; }),
-      categoria: titulos.indexOf('categoria'),
-      total:     titulos.findIndex(function (t) { return t === 'quantidade' || t === 'total'; }),
-      descricao: titulos.indexOf('descricao'),
-    };
-
-    if (col.nome === -1) {
-      mostrarAvisoCSV('erro', 'Não encontrei a coluna NOME na primeira linha da planilha.');
-      return;
-    }
-    if (col.preco === -1) {
-      mostrarAvisoCSV('erro', 'Não encontrei a coluna PRECO na primeira linha da planilha.');
-      return;
-    }
-
-    /* ---- Montar a lista que veio da planilha ---- */
-    var daPlanilha = [];
-    var nomesVistos = {};
-
-    for (var i = 1; i < linhas.length; i++) {
-      var l = linhas[i];
-      var nome = String(l[col.nome] || '').replace(/\s+/g, ' ').trim();
-      if (!nome) continue;
-
-      var chave = chaveDoNome(nome);
-      if (nomesVistos[chave]) continue;   // linha repetida na planilha
-      nomesVistos[chave] = true;
-
-      daPlanilha.push({
-        chave:     chave,
-        nome:      nome,
-        link:      col.link      !== -1 ? String(l[col.link] || '').trim() : '',
-        preco:     lerPreco(l[col.preco]),
-        categoria: col.categoria !== -1 ? (chaveDoNome(l[col.categoria]) || 'outros') : null,
-        descricao: col.descricao !== -1 ? String(l[col.descricao] || '').trim() : null,
-        total:     col.total     !== -1 ? (parseInt(l[col.total], 10) || 1) : null,
-      });
-    }
-
-    if (!daPlanilha.length) {
-      mostrarAvisoCSV('erro', 'Não encontrei nenhum presente com nome preenchido.');
-      return;
-    }
+    var daPlanilha = itens.map(function (x) {
+      return {
+        chave: chaveDoNome(x.nome), nome: x.nome, link: x.link, preco: x.preco,
+        categoria: x.categoria, descricao: null, total: x.total,
+      };
+    });
 
     /* ---- Comparar com o que já está cadastrado ---- */
     var atuais = {};
@@ -1044,7 +957,7 @@
           var doc = await fs.addDoc(fs.collection(banco, 'presentes'), registro);
           estado.presentes.push(Object.assign({ id: doc.id }, registro));
         } else {
-          estado.presentes.push(Object.assign({ id: 'csv-' + Date.now() + '-' + n }, registro));
+          estado.presentes.push(Object.assign({ id: 'planilha-' + Date.now() + '-' + n }, registro));
         }
       }
 
@@ -1067,11 +980,14 @@
       if (sobrando.length && !apagar.length) {
         resumo.push(sobrando.length + ' mantido(s) fora da planilha');
       }
-      mostrarAvisoCSV('ok', 'Pronto: ' + resumo.join(', ') + '.');
+      var semPreco = daPlanilha.filter(function (x) { return !(x.preco > 0); }).length;
+      mostrarAvisoPlanilha('ok', 'Pronto: ' + resumo.join(', ') + '.' +
+        (semPreco ? ' ' + semPreco + ' item(ns) estão sem preço e aparecem como "Em breve" para os convidados.' : '') +
+        (avisosDaLeitura.length ? ' Atenção: ' + avisosDaLeitura.join(' ') : ''));
 
     } catch (erro) {
       console.error(erro);
-      mostrarAvisoCSV('erro', 'Parei no meio por causa de um erro: ' + erro.message +
+      mostrarAvisoPlanilha('erro', 'Parei no meio por causa de um erro: ' + erro.message +
                               ' O que já foi salvo continua salvo.');
       desenharTudo();
     }

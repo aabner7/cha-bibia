@@ -75,32 +75,48 @@ porque alguém pode ter pago e só não ter avisado.
 
 ### Trocar a lista inteira por uma planilha
 
-Na aba **Presentes**, toque em **Importar planilha**.
+Na aba **Presentes**, toque em **Importar planilha** e escolha o arquivo
+**.xlsx** (o do Excel). Se a sua planilha estiver no Google Planilhas, baixe
+em *Arquivo > Fazer download > Microsoft Excel (.xlsx)*.
 
-A planilha precisa ter, na primeira linha, os títulos **NOME**, **LINK** e
-**PRECO**. A ordem não importa, e pode ter outras colunas, como CATEGORIA
-ou QUANTIDADE.
+Como a planilha deve ser:
 
-Exemplo:
-
-```
-NOME;LINK;PRECO
-Berço portátil;https://loja.com/berco;1249,00
-Lençol de berço;https://loja.com/lencol;89,90
-```
-
-O preço pode estar escrito de qualquer jeito: `89,90`, `R$ 89,90` ou
-`1.249,00`. O site entende todos.
+- **Uma aba para cada categoria.** O nome da aba vira a seção do site. As abas
+  que o site conhece são: *Para o quarto*, *Para passear*, *Para o soninho*,
+  *Para vestir*, *Higiene e Banho*, *Fraldas* e *Alimentação*. Uma aba com outro
+  nome vai para a seção "Outros" (e o site avisa).
+- **Primeira linha de cada aba com os títulos** *Nome*, *Link*, *Preço* e
+  *Quantidade*. A ordem das colunas não importa, e *Link* e *Preço* podem nem
+  existir na aba (como em *Para vestir* e *Fraldas*).
+- **O preço pode ser digitado ou vir de fórmula.** O site lê o valor que o
+  Excel está mostrando.
+- **Duas opções do mesmo item:** se você mesclar a célula do nome em duas linhas
+  (como nos lençóis), cada linha vira uma opção: "Lençol (opção 1)" e
+  "Lençol (opção 2)", cada uma com o seu link e o seu preço.
 
 O que acontece:
 
-- Presente que **já existe** (pelo nome): o preço e o link são atualizados.
+- Presente que **já existe** (pelo nome): o preço, o link, a quantidade e a
+  seção são atualizados. Quem já escolheu o presente é preservado.
 - Presente que **não existe**: é criado.
 - Presente que **sumiu da planilha**: o site mostra a lista deles e pergunta
   antes de apagar. Se você cancelar, nada é apagado.
 
-Dica: o botão **Baixar presentes em Excel** gera uma planilha já com as
-colunas certas. Dá para baixar, corrigir os preços no Excel e subir de volta.
+Dois cuidados:
+
+- **Mudou o nome de um item na planilha?** O site entende como outro item:
+  cria o novo e pergunta se apaga o antigo. Para corrigir um erro de digitação
+  sem perder as escolhas já feitas, corrija direto no site (botão **Editar**).
+- **Item sem preço** aparece como "Em breve" e ninguém consegue escolher. Se
+  vir isso depois de importar, falta preencher o preço na planilha.
+
+Os links grandes da Amazon e do Mercado Livre são encurtados sozinhos: o site
+tira os códigos de rastreio que não mudam o produto e mantém o que escolhe
+tamanho, cor ou vendedor. Os links curtos (`link.amazon/...`) ficam como estão.
+
+O botão **Baixar presentes em Excel** gera um arquivo de conferência (CSV) com
+o que está no site, as quantidades já escolhidas e o que ainda falta. Ele serve
+para olhar e somar, não para subir de volta: a planilha que sobe é a sua.
 
 ### Acrescentar um presente
 

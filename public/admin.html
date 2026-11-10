@@ -75,29 +75,31 @@
       <section id="painel-presentes">
         <div class="cartao" id="bloco-importar" hidden>
           <h2>Começar a lista</h2>
-          <p>Sua lista está vazia. Posso cadastrar de uma vez os
-             <strong id="qtd-importar">17</strong> itens que você já tinha montado.</p>
+          <p>Sua lista está vazia. Posso cadastrar de uma vez
+             todos os itens da lista de presentes que você montou.</p>
           <button type="button" class="botao" id="botao-importar">Importar lista inicial</button>
         </div>
 
         <details class="cartao dobravel">
           <summary><h2>Importar planilha</h2></summary>
           <p>
-            Suba uma planilha com as colunas <strong>NOME</strong>,
-            <strong>LINK</strong> e <strong>PRECO</strong> na primeira linha.
+            Suba a planilha de presentes (arquivo <strong>.xlsx</strong>), com uma
+            aba para cada categoria e, na primeira linha de cada aba, os títulos
+            <strong>Nome</strong>, <strong>Link</strong>, <strong>Preço</strong> e
+            <strong>Quantidade</strong>.
           </p>
           <ul class="lista-simples">
-            <li>Presente que já existe: atualiza o preço e o link.</li>
-            <li>Presente que não existe: é criado.</li>
+            <li>Presente que já existe: atualiza preço, link e quantidade.</li>
+            <li>Presente que não existe: é criado, na categoria da aba.</li>
             <li>Presente que sumiu da planilha: só é apagado depois que você confirmar.</li>
           </ul>
-          <p class="aviso" id="aviso-csv" role="alert" hidden></p>
+          <p class="aviso" id="aviso-planilha" role="alert" hidden></p>
           <div class="campo">
-            <label for="arquivo-csv">Arquivo da planilha (.csv)</label>
-            <input type="file" id="arquivo-csv" accept=".csv,text/csv">
+            <label for="arquivo-planilha">Arquivo da planilha (.xlsx)</label>
+            <input type="file" id="arquivo-planilha"
+                   accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <span class="ajuda">
-              No Excel ou no Google Planilhas, use "Salvar como" ou "Baixar"
-              e escolha CSV.
+              No Google Planilhas: Arquivo &gt; Fazer download &gt; Microsoft Excel (.xlsx).
             </span>
           </div>
         </details>
@@ -147,6 +149,7 @@
   <script src="js/firebase-config.js"></script>
   <script src="js/pix-config.js"></script>
   <script src="js/pix.js"></script>
+  <script src="js/leitor-xlsx.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

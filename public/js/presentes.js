@@ -100,9 +100,12 @@
      DESENHAR A LISTA NA TELA
      --------------------------------------------------------- */
   var NOMES_CATEGORIA = {
-    quarto: 'Quarto', banho: 'Banho', pele: 'Pele', troca: 'Hora da troca',
-    cuidados: 'Cabelo e unhas', narizinho: 'Narizinho', transporte: 'Transporte',
-    alimentacao: 'Alimentação', boca: 'Higiene bucal', outros: 'Outros',
+    quarto: 'Para o quarto', passear: 'Para passear', soninho: 'Para o soninho',
+    vestir: 'Para vestir', higiene: 'Higiene e banho', fraldas: 'Fraldas',
+    alimentacao: 'Alimentação', outros: 'Outros',
+    // nomes antigos, caso sobre algum presente cadastrado antes da planilha
+    banho: 'Banho', pele: 'Pele', troca: 'Hora da troca', cuidados: 'Cabelo e unhas',
+    narizinho: 'Narizinho', transporte: 'Transporte', boca: 'Higiene bucal',
   };
 
   function desenhar() {

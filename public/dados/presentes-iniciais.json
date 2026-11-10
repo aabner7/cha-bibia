@@ -1,393 +1,755 @@
 {
-  "_leia_me": "Lista inicial de presentes. Serve para (1) mostrar a página antes do Firebase existir e (2) ser importada para o banco pela área administrativa. Os preços entram pela planilha CSV na área administrativa; por isso estão em 0 aqui. Depois que a lista estiver no Firebase, quem manda é o banco, e este arquivo vira só uma cópia de segurança.",
-  "categorias": [
-    {
-      "id": "quarto",
-      "nome": "Quarto"
-    },
-    {
-      "id": "banho",
-      "nome": "Banho"
-    },
-    {
-      "id": "pele",
-      "nome": "Pele"
-    },
-    {
-      "id": "troca",
-      "nome": "Hora da troca"
-    },
-    {
-      "id": "cuidados",
-      "nome": "Cabelo e unhas"
-    },
-    {
-      "id": "narizinho",
-      "nome": "Narizinho"
-    },
-    {
-      "id": "transporte",
-      "nome": "Transporte"
-    },
-    {
-      "id": "alimentacao",
-      "nome": "Alimentação"
-    },
-    {
-      "id": "boca",
-      "nome": "Higiene bucal"
-    }
-  ],
-  "presentes": [
-    {
-      "nome": "Berço portátil moisés ajustável",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/berco-bebe-moises-ajustavel-mosqueteiro-portatil-infantil/up/MLBU3841712448",
-      "descricao": "Moisés ajustável com mosqueteiro.",
-      "foto": "",
-      "ordem": 0
-    },
-    {
-      "nome": "Berço americano 3 em 1 (colchão 130x70 cm)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/berco-americano-3-em-1-para-colchao-130x70cm-multimoveis-0527pa-madeiradobranco/p/MLB60947746",
-      "descricao": "Opção para escolher no lugar do moisés.",
-      "foto": "",
-      "ordem": 1
-    },
-    {
-      "nome": "Kit 3 lençóis de mini berço 90x60 (malha 100% algodão)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/kit-3-lencol-mini-berco-portatil-90x60-malha-100-algodao/up/MLBU4008600293",
-      "descricao": "Para o berço portátil.",
-      "foto": "",
-      "ordem": 2
-    },
-    {
-      "nome": "Kit 2 lençóis de mini berço 90x60 (malha 100% algodão)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/kit-2-lencol-mini-berco-portatil-90x60-malha-100-algodao/up/MLBU4575100522",
-      "descricao": "Opção alternativa ao kit de 3.",
-      "foto": "",
-      "ordem": 3
-    },
-    {
-      "nome": "Kit 3 lençóis com elástico para berço americano (100% algodão, rosa)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/kit-3-lencois-com-elastico-berco-americano-100-algodao-rosa/p/MLB44234615",
-      "descricao": "Para o berço americano.",
-      "foto": "",
-      "ordem": 4
-    },
-    {
-      "nome": "Kit 3 lençóis para berço americano (algodão percal 300 fios)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/kit-3-lencois-berco-americano-100-algodao-percal-300-fios/up/MLBU3569208120",
-      "descricao": "Para o berço americano.",
-      "foto": "",
-      "ordem": 5
-    },
-    {
-      "nome": "Kit 3 cueiros de manta flanelada (dois lados)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://produto.mercadolivre.com.br/MLB-1914496565-kit-3-cueiro-manta-flanelado-dois-lados-beb-menino-menina-_JM",
-      "descricao": "",
-      "foto": "",
-      "ordem": 6
-    },
-    {
-      "nome": "Kit 3 cueiros flanelados Papi (enxoval)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://produto.mercadolivre.com.br/MLB-4240078147-kit-cueiro-3-pc-papi-algodo-flanelado-enxoval-presente-bebe-_JM",
-      "descricao": "Opção alternativa ao kit de cueiro.",
-      "foto": "",
-      "ordem": 7
-    },
-    {
-      "nome": "Ruído branco",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B07jmaHc1",
-      "descricao": "Aparelho para acalmar o sono.",
-      "foto": "",
-      "ordem": 8
-    },
-    {
-      "nome": "Protetor de colchão impermeável (3 unidades)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.amazon.com.br/dp/B0CGJG3GF4",
-      "descricao": "Kit com 3 protetores para berço americano.",
-      "foto": "",
-      "ordem": 9
-    },
-    {
-      "nome": "Capa protetora de colchão para mini berço 90x60 (segura xixi)",
-      "categoria": "quarto",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/capa-protetor-colchao-mini-berco-90-x-60-x-10-segura-xixi-branco-matelasse-rombo-berco/p/MLB69088608",
-      "descricao": "Para o berço portátil.",
-      "foto": "",
-      "ordem": 10
-    },
-    {
-      "nome": "Mustela Gel Lavante abacate",
-      "categoria": "banho",
-      "total": 2,
-      "preco": 0,
-      "link": "https://link.amazon/B07Z9bW4A",
-      "descricao": "",
-      "foto": "",
-      "ordem": 11
-    },
-    {
-      "nome": "Mustela Gel sem fragrância",
-      "categoria": "banho",
-      "total": 2,
-      "preco": 0,
-      "link": "https://link.amazon/B00xkFIM8",
-      "descricao": "",
-      "foto": "",
-      "ordem": 12
-    },
-    {
-      "nome": "Sabonete Johnson's Baby Derma Protect",
-      "categoria": "banho",
-      "total": 3,
-      "preco": 0,
-      "link": "https://link.amazon/B0egRcD08",
-      "descricao": "",
-      "foto": "",
-      "ordem": 13
-    },
-    {
-      "nome": "Creme preventivo de assaduras Mustela",
-      "categoria": "pele",
-      "total": 3,
-      "preco": 0,
-      "link": "https://link.amazon/B0iOyMovU",
-      "descricao": "",
-      "foto": "",
-      "ordem": 14
-    },
-    {
-      "nome": "Creme hidratante Cetaphil",
-      "categoria": "pele",
-      "total": 2,
-      "preco": 0,
-      "link": "https://link.amazon/B0cpaMxLt",
-      "descricao": "",
-      "foto": "",
-      "ordem": 15
-    },
-    {
-      "nome": "Fralda Pampers RN Premium Care",
-      "categoria": "troca",
-      "total": 6,
-      "preco": 0,
-      "link": "https://link.amazon/B0brYrc98",
-      "descricao": "Tamanho RN (recém-nascido).",
-      "foto": "",
-      "ordem": 16
-    },
-    {
-      "nome": "Algodão quadrado Bellacotton",
-      "categoria": "troca",
-      "total": 4,
-      "preco": 0,
-      "link": "https://link.amazon/B0dk34eYo",
-      "descricao": "",
-      "foto": "",
-      "ordem": 17
-    },
-    {
-      "nome": "Lenço umedecido Bepantol",
-      "categoria": "troca",
-      "total": 4,
-      "preco": 0,
-      "link": "https://link.amazon/B04kj6ODc",
-      "descricao": "",
-      "foto": "",
-      "ordem": 18
-    },
-    {
-      "nome": "Escova e pente Buba",
-      "categoria": "cuidados",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B0iK7xOVl",
-      "descricao": "",
-      "foto": "",
-      "ordem": 19
-    },
-    {
-      "nome": "Escova e pente Chicco",
-      "categoria": "cuidados",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B04bpTh6u",
-      "descricao": "",
-      "foto": "",
-      "ordem": 20
-    },
-    {
-      "nome": "Tesourinha de unhas Mundial",
-      "categoria": "cuidados",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B0177iymX",
-      "descricao": "",
-      "foto": "",
-      "ordem": 21
-    },
-    {
-      "nome": "Kit de tesoura e lixa de unha Buba",
-      "categoria": "cuidados",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B0dL5XrSu",
-      "descricao": "",
-      "foto": "",
-      "ordem": 22
-    },
-    {
-      "nome": "Kit lixa de unha elétrico Buba",
-      "categoria": "cuidados",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B0aOni3Du",
-      "descricao": "",
-      "foto": "",
-      "ordem": 23
-    },
-    {
-      "nome": "Aspirador nasal Likluc",
-      "categoria": "narizinho",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B0dPOVSq5",
-      "descricao": "",
-      "foto": "",
-      "ordem": 24
-    },
-    {
-      "nome": "Seringa de lavagem nasal Buba",
-      "categoria": "narizinho",
-      "total": 2,
-      "preco": 0,
-      "link": "https://link.amazon/B0hDy1BAW",
-      "descricao": "",
-      "foto": "",
-      "ordem": 25
-    },
-    {
-      "nome": "Carrinho de bebê + bebê conforto (Safety 1st Spark Plus Trio)",
-      "categoria": "transporte",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/travel-system-safety-1st-spark-plus-trio-com-isofix-0-a-22-kg-black-graphite/p/MLB44790874",
-      "descricao": "Travel system com bebê conforto ISOFIX.",
-      "foto": "",
-      "ordem": 26
-    },
-    {
-      "nome": "Sling (wrap) de algodão",
-      "categoria": "transporte",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.amazon.com.br/dp/B07SXRK64F",
-      "descricao": "Carregador de bebê de algodão.",
-      "foto": "",
-      "ordem": 27
-    },
-    {
-      "nome": "Mochila evolutiva",
-      "categoria": "transporte",
-      "total": 1,
-      "preco": 0,
-      "link": "https://portbaby.com.br/produtos/mochila-ajustavel-bebe-sarja-cruzada-arco-iris/",
-      "descricao": "Modelo arco-íris.",
-      "foto": "",
-      "ordem": 28
-    },
-    {
-      "nome": "Bomba tira-leite elétrica dupla (Medela Swing Maxi Hands-free)",
-      "categoria": "alimentacao",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/bomba-tira-leite-eletrica-dupla-swing-maxi-hands-free-medela/p/MLB51494246",
-      "descricao": "",
-      "foto": "",
-      "ordem": 29
-    },
-    {
-      "nome": "Almofada de amamentação",
-      "categoria": "alimentacao",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.amazon.com.br/dp/B0G2MDVJPN",
-      "descricao": "Removível e antialérgica.",
-      "foto": "",
-      "ordem": 30
-    },
-    {
-      "nome": "Sacos para congelar leite materno (kit 200, 200 ml)",
-      "categoria": "alimentacao",
-      "total": 2,
-      "preco": 0,
-      "link": "https://www.mercadolivre.com.br/kit-200-sacos-para-congelar-leite-materno-200ml/up/MLBU3949536260",
-      "descricao": "Pedido de 2 kits.",
-      "foto": "",
-      "ordem": 31
-    },
-    {
-      "nome": "Frasco para coleta e armazenamento de leite (Medela)",
-      "categoria": "alimentacao",
-      "total": 1,
-      "preco": 0,
-      "link": "https://www.amazon.com.br/dp/B002LZU85O",
-      "descricao": "Copo para armazenar leite.",
-      "foto": "",
-      "ordem": 32
-    },
-    {
-      "nome": "MAM Baby kit com 2 escovas de dentes",
-      "categoria": "boca",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B01MOUnUr",
-      "descricao": "",
-      "foto": "",
-      "ordem": 33
-    },
-    {
-      "nome": "Gel dental Trá Lá Lá",
-      "categoria": "boca",
-      "total": 1,
-      "preco": 0,
-      "link": "https://link.amazon/B03ouAAxg",
-      "descricao": "",
-      "foto": "",
-      "ordem": 34
-    }
-  ]
+ "_leia_me": "Lista inicial de presentes, gerada a partir da planilha \"Lista de presentes.xlsx\". Serve para (1) mostrar a página antes do Firebase existir e (2) ser importada para o banco pelo botão \"Importar lista inicial\" da área administrativa. Depois que a lista estiver no Firebase, quem manda é o banco (e a planilha que você sobe no painel); este arquivo vira só uma cópia de segurança.",
+ "categorias": [
+  {
+   "id": "quarto",
+   "nome": "Para o quarto"
+  },
+  {
+   "id": "passear",
+   "nome": "Para passear"
+  },
+  {
+   "id": "soninho",
+   "nome": "Para o soninho"
+  },
+  {
+   "id": "vestir",
+   "nome": "Para vestir"
+  },
+  {
+   "id": "higiene",
+   "nome": "Higiene e banho"
+  },
+  {
+   "id": "fraldas",
+   "nome": "Fraldas"
+  },
+  {
+   "id": "alimentacao",
+   "nome": "Alimentação"
+  }
+ ],
+ "presentes": [
+  {
+   "nome": "Berço portátil",
+   "categoria": "quarto",
+   "total": 1,
+   "preco": 540,
+   "link": "https://www.mercadolivre.com.br/berco-moises-portatil-compacto-com-mosquiteiro-retratil/up/MLBU4306621143?pdp_filters=item_id:MLB7170818690|item_id:MLB7170818690",
+   "descricao": "",
+   "foto": "",
+   "ordem": 0
+  },
+  {
+   "nome": "Berço padrão",
+   "categoria": "quarto",
+   "total": 1,
+   "preco": 539.99,
+   "link": "https://www.mercadolivre.com.br/berco-americano-3-em-1-para-colchao-130x70cm-multimoveis-0527pa-madeiradobranco/p/MLB60947746?pdp_filters=item_id:MLB7756247320%7Citem_id:MLB7756247320",
+   "descricao": "",
+   "foto": "",
+   "ordem": 1
+  },
+  {
+   "nome": "Organizadores de acrílico",
+   "categoria": "quarto",
+   "total": 3,
+   "preco": 52.15,
+   "link": "https://www.amazon.com.br/Organizador-Acr%C3%ADlico-Transparente-Ajust%C3%A1vel-Minimalista/dp/B0GP9242VY",
+   "descricao": "",
+   "foto": "",
+   "ordem": 2
+  },
+  {
+   "nome": "Tapete de atividades",
+   "categoria": "quarto",
+   "total": 1,
+   "preco": 78.75,
+   "link": "https://www.amazon.com.br/Tapete-Atividades-para-Piano-Musical/dp/B0GRPHT3GR?psc=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 3
+  },
+  {
+   "nome": "Carrinho de bebê 3 em 1",
+   "categoria": "passear",
+   "total": 1,
+   "preco": 1445.57,
+   "link": "https://www.mercadolivre.com.br/travel-system-safety-1st-spark-plus-trio-com-isofix-0-a-22-kg-black-graphite/p/MLB44790874",
+   "descricao": "",
+   "foto": "",
+   "ordem": 4
+  },
+  {
+   "nome": "Sling",
+   "categoria": "passear",
+   "total": 2,
+   "preco": 39.69,
+   "link": "https://www.amazon.com.br/Wrap-Sling-Algod%C3%A3o-Carregador-Beb%C3%AA/dp/B07SXRK64F",
+   "descricao": "",
+   "foto": "",
+   "ordem": 5
+  },
+  {
+   "nome": "Mochila evolutiva",
+   "categoria": "passear",
+   "total": 1,
+   "preco": 575,
+   "link": "https://portbaby.com.br/produtos/mochila-ajustavel-bebe-sarja-cruzada-arco-iris/",
+   "descricao": "",
+   "foto": "",
+   "ordem": 6
+  },
+  {
+   "nome": "Espelho para carro",
+   "categoria": "passear",
+   "total": 1,
+   "preco": 105.68,
+   "link": "https://www.amazon.com.br/Espelho-Back-Safety-1st-Black/dp/B07QM9S4GT?psc=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 7
+  },
+  {
+   "nome": "Capa de colchão impermeável portátil",
+   "categoria": "soninho",
+   "total": 2,
+   "preco": 35.62,
+   "link": "https://www.mercadolivre.com.br/protetor-para-berco-portatil-impermeavel-matelado-c-elastico/up/MLBU5120665277?pdp_filters=item_id:MLB7613201764|item_id:MLB7613201764",
+   "descricao": "",
+   "foto": "",
+   "ordem": 8
+  },
+  {
+   "nome": "Capa de colchão impermeável padrão",
+   "categoria": "soninho",
+   "total": 2,
+   "preco": 34.9,
+   "link": "https://www.amazon.com.br/Protetor-Colch%C3%A3o-Impermeavel-Americano-Protetora/dp/B0CGJG3GF4",
+   "descricao": "",
+   "foto": "",
+   "ordem": 9
+  },
+  {
+   "nome": "Lençol de berço portátil (opção 1)",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 53.9,
+   "link": "https://www.mercadolivre.com.br/kit-2-lencol-mini-berco-portatil-90x60-malha-100-algodao/up/MLBU4575100522?pdp_filters=item_id%3AMLB7320744698",
+   "descricao": "",
+   "foto": "",
+   "ordem": 10
+  },
+  {
+   "nome": "Lençol de berço portátil (opção 2)",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 74.29,
+   "link": "https://www.mercadolivre.com.br/kit-3-lencol-mini-berco-portatil-90x60-malha-100-algodao/up/MLBU4008600293?pdp_filters=item_id:MLB6849089674%7Citem_id:MLB6849089674",
+   "descricao": "",
+   "foto": "",
+   "ordem": 11
+  },
+  {
+   "nome": "Lençol de berço padrão (opção 1)",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 107.72,
+   "link": "https://www.mercadolivre.com.br/kit-3-lencois-com-elastico-berco-americano-100-algodao-rosa/p/MLB44234615?pdp_filters=item_id%3AMLB5201584156",
+   "descricao": "",
+   "foto": "",
+   "ordem": 12
+  },
+  {
+   "nome": "Lençol de berço padrão (opção 2)",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 132.05,
+   "link": "https://www.mercadolivre.com.br/kit-3-lencois-berco-americano-100-algodao-percal-300-fios/up/MLBU3569208120?pdp_filters=item_id%3AMLB6679884490%7Citem_id%3AMLB6679884490",
+   "descricao": "",
+   "foto": "",
+   "ordem": 13
+  },
+  {
+   "nome": "Manta",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 40.99,
+   "link": "https://produto.mercadolivre.com.br/MLB-5877503558-kit-3-mantas-cobertor-microfibra-infantil-beb-menino-menina-_JM?searchVariation=186661593950",
+   "descricao": "",
+   "foto": "",
+   "ordem": 14
+  },
+  {
+   "nome": "Cueiro",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 39.2,
+   "link": "https://produto.mercadolivre.com.br/MLB-1914496565-kit-3-cueiro-manta-flanelado-dois-lados-beb-menino-menina-_JM?searchVariation=183972622261&pdp_filters=item_id%3AMLB1914496565",
+   "descricao": "",
+   "foto": "",
+   "ordem": 15
+  },
+  {
+   "nome": "Ruído branco",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 68.4,
+   "link": "https://www.amazon.com.br/Aparelho-Branco-Acalmar-Crian%C3%A7a-Relaxante/dp/B0D61ZTXG9",
+   "descricao": "",
+   "foto": "",
+   "ordem": 16
+  },
+  {
+   "nome": "Babá eletrônica",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 17
+  },
+  {
+   "nome": "Redutor de ninho",
+   "categoria": "soninho",
+   "total": 1,
+   "preco": 73.02,
+   "link": "https://www.amazon.com.br/Redutor-Casulinho-Tamanho-Aconchegante-Algod%C3%A3o/dp/B0HDPCYC78?th=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 18
+  },
+  {
+   "nome": "Capa para redutor de ninho",
+   "categoria": "soninho",
+   "total": 2,
+   "preco": 36.94,
+   "link": "https://www.amazon.com.br/Z%C3%ADper-Ninho-Casulinho-Algod%C3%A3o-Brubrelel/dp/B0FT62YZ34?th=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 19
+  },
+  {
+   "nome": "Body manga longa RN",
+   "categoria": "vestir",
+   "total": 9,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 20
+  },
+  {
+   "nome": "Calça RN",
+   "categoria": "vestir",
+   "total": 5,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 21
+  },
+  {
+   "nome": "Macacão RN",
+   "categoria": "vestir",
+   "total": 6,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 22
+  },
+  {
+   "nome": "Casaquinho RN",
+   "categoria": "vestir",
+   "total": 1,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 23
+  },
+  {
+   "nome": "Touca e luva RN",
+   "categoria": "vestir",
+   "total": 1,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 24
+  },
+  {
+   "nome": "Meias RN",
+   "categoria": "vestir",
+   "total": 8,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 25
+  },
+  {
+   "nome": "Body manga longa P",
+   "categoria": "vestir",
+   "total": 3,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 26
+  },
+  {
+   "nome": "Calça P",
+   "categoria": "vestir",
+   "total": 8,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 27
+  },
+  {
+   "nome": "Macacão P",
+   "categoria": "vestir",
+   "total": 7,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 28
+  },
+  {
+   "nome": "Casaquinho P",
+   "categoria": "vestir",
+   "total": 3,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 29
+  },
+  {
+   "nome": "Meias P",
+   "categoria": "vestir",
+   "total": 8,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 30
+  },
+  {
+   "nome": "Body manga curta M",
+   "categoria": "vestir",
+   "total": 6,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 31
+  },
+  {
+   "nome": "Body manga longa M",
+   "categoria": "vestir",
+   "total": 7,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 32
+  },
+  {
+   "nome": "Calça M",
+   "categoria": "vestir",
+   "total": 8,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 33
+  },
+  {
+   "nome": "Macacão M",
+   "categoria": "vestir",
+   "total": 7,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 34
+  },
+  {
+   "nome": "Casaquinho M",
+   "categoria": "vestir",
+   "total": 3,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 35
+  },
+  {
+   "nome": "Meias M",
+   "categoria": "vestir",
+   "total": 8,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 36
+  },
+  {
+   "nome": "Body manga curta G",
+   "categoria": "vestir",
+   "total": 6,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 37
+  },
+  {
+   "nome": "Body manga longa G",
+   "categoria": "vestir",
+   "total": 9,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 38
+  },
+  {
+   "nome": "Calça G",
+   "categoria": "vestir",
+   "total": 9,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 39
+  },
+  {
+   "nome": "Macacão G",
+   "categoria": "vestir",
+   "total": 8,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 40
+  },
+  {
+   "nome": "Casaquinho G",
+   "categoria": "vestir",
+   "total": 4,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 41
+  },
+  {
+   "nome": "Short G",
+   "categoria": "vestir",
+   "total": 2,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 42
+  },
+  {
+   "nome": "Meias G",
+   "categoria": "vestir",
+   "total": 10,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 43
+  },
+  {
+   "nome": "Banheira",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 289.88,
+   "link": "https://www.amazon.com.br/Banheira-Suporte-Encosto-Port%C3%A1til-Suporta/dp/B0DQF915S6?th=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 44
+  },
+  {
+   "nome": "Creme hidratante",
+   "categoria": "higiene",
+   "total": 2,
+   "preco": 36.5,
+   "link": "https://link.amazon/B0cpaMxLt",
+   "descricao": "",
+   "foto": "",
+   "ordem": 45
+  },
+  {
+   "nome": "Creme preventivo de assadura",
+   "categoria": "higiene",
+   "total": 4,
+   "preco": 83.99,
+   "link": "https://link.amazon/B0iOyMovU",
+   "descricao": "",
+   "foto": "",
+   "ordem": 46
+  },
+  {
+   "nome": "Sabonete líquido",
+   "categoria": "higiene",
+   "total": 2,
+   "preco": 73.15,
+   "link": "https://link.amazon/B07Z9bW4A",
+   "descricao": "",
+   "foto": "",
+   "ordem": 47
+  },
+  {
+   "nome": "Shampoo",
+   "categoria": "higiene",
+   "total": 2,
+   "preco": 73.15,
+   "link": "https://link.amazon/B07Z9bW4A",
+   "descricao": "",
+   "foto": "",
+   "ordem": 48
+  },
+  {
+   "nome": "Kit para unhas",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 19.36,
+   "link": "https://link.amazon/B0dL5XrSu",
+   "descricao": "",
+   "foto": "",
+   "ordem": 49
+  },
+  {
+   "nome": "Escova/pente de cabelo",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 23,
+   "link": "https://link.amazon/B0iK7xOVl",
+   "descricao": "",
+   "foto": "",
+   "ordem": 50
+  },
+  {
+   "nome": "Aspirador nasal",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 54.77,
+   "link": "https://link.amazon/B0dPOVSq5",
+   "descricao": "",
+   "foto": "",
+   "ordem": 51
+  },
+  {
+   "nome": "Seringa nasal",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 16.74,
+   "link": "https://link.amazon/B0hDy1BAW",
+   "descricao": "",
+   "foto": "",
+   "ordem": 52
+  },
+  {
+   "nome": "Seringa dosadora de remédio",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 23.17,
+   "link": "https://www.amazon.com.br/BUBA-Dosador-De-Rem%C3%A9dio-Buba/dp/B07M75PRJW",
+   "descricao": "",
+   "foto": "",
+   "ordem": 53
+  },
+  {
+   "nome": "Termômetro digital",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 13.89,
+   "link": "https://www.amazon.com.br/Term%C3%B4metro-Digital-Cl%C3%ADnico-Branco-G-Tech/dp/B07M6SD7KQ",
+   "descricao": "",
+   "foto": "",
+   "ordem": 54
+  },
+  {
+   "nome": "Trocador de cômoda",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 54.05,
+   "link": "https://www.amazon.com.br/Trocador-Fraldas-Anat%C3%B4mico-Imperme%C3%A1vel-Menina/dp/B0FYQLG55B?th=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 55
+  },
+  {
+   "nome": "Kit higiene",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 159.6,
+   "link": "https://www.amazon.com.br/Porcelana-Dispenser-Decorativo-Infantil-Margarida/dp/B0HLSZYSQ8?th=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 56
+  },
+  {
+   "nome": "Algodão",
+   "categoria": "higiene",
+   "total": 2,
+   "preco": 26,
+   "link": "https://link.amazon/B0dk34eYo",
+   "descricao": "",
+   "foto": "",
+   "ordem": 57
+  },
+  {
+   "nome": "Cotonete com hastes flexíveis",
+   "categoria": "higiene",
+   "total": 2,
+   "preco": 19.25,
+   "link": "https://www.amazon.com.br/Buba-Hastes-Flex%C3%ADveis-Baby-Unidades/dp/B0F1BF7C8G?psc=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 58
+  },
+  {
+   "nome": "Lenço umedecido",
+   "categoria": "higiene",
+   "total": 5,
+   "preco": 13.49,
+   "link": "https://link.amazon/B04kj6ODc",
+   "descricao": "",
+   "foto": "",
+   "ordem": 59
+  },
+  {
+   "nome": "Lixeira antiodor",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 90.23,
+   "link": "https://www.amazon.com.br/Antiodor-Inteligente-Capacidade-Banheiro-Lavanderia/dp/B0H9VMRMJK?psc=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 60
+  },
+  {
+   "nome": "Fralda de boca",
+   "categoria": "higiene",
+   "total": 2,
+   "preco": 28.9,
+   "link": "https://www.amazon.com.br/Trio-Fralda-Boca-100-Algod%C3%A3o/dp/B0GTCC7WKV?th=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 61
+  },
+  {
+   "nome": "Colônia Mamãe Bebê",
+   "categoria": "higiene",
+   "total": 1,
+   "preco": 60.87,
+   "link": "https://www.amazon.com.br/Mam%C3%A3e-Beb%C3%AA-%C3%81gua-Col%C3%B4nia-Tradional/dp/B07X3XX438?psc=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 62
+  },
+  {
+   "nome": "Fralda RN Pampers",
+   "categoria": "fraldas",
+   "total": 2,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 63
+  },
+  {
+   "nome": "Fralda RN+ Pampers",
+   "categoria": "fraldas",
+   "total": 2,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 64
+  },
+  {
+   "nome": "Fralda P Pampers",
+   "categoria": "fraldas",
+   "total": 10,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 65
+  },
+  {
+   "nome": "Fralda M Pampers",
+   "categoria": "fraldas",
+   "total": 18,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 66
+  },
+  {
+   "nome": "Fralda G Pampers",
+   "categoria": "fraldas",
+   "total": 6,
+   "preco": 0,
+   "link": "",
+   "descricao": "",
+   "foto": "",
+   "ordem": 67
+  },
+  {
+   "nome": "Almofada de amamentação",
+   "categoria": "alimentacao",
+   "total": 1,
+   "preco": 74.95,
+   "link": "https://www.amazon.com.br/Amamenta%C3%A7%C3%A3o-Travesseiro-Remov%C3%ADvel-Antial%C3%A9rgico-PEGWEB/dp/B0G2MDVJPN?psc=1",
+   "descricao": "",
+   "foto": "",
+   "ordem": 68
+  },
+  {
+   "nome": "Extrator de leite",
+   "categoria": "alimentacao",
+   "total": 1,
+   "preco": 1690,
+   "link": "https://www.mercadolivre.com.br/bomba-tira-leite-eletrica-dupla-swing-maxi-hands-free-medela/p/MLB51494246?pdp_filters=item_id:MLB5436717462",
+   "descricao": "",
+   "foto": "",
+   "ordem": 69
+  },
+  {
+   "nome": "Coletror de leite",
+   "categoria": "alimentacao",
+   "total": 1,
+   "preco": 87.25,
+   "link": "https://www.amazon.com.br/Frasco-Coleta-Unidades-Medela-Incolor/dp/B002LZU85O",
+   "descricao": "",
+   "foto": "",
+   "ordem": 70
+  },
+  {
+   "nome": "Saquinhos para armazenar leite",
+   "categoria": "alimentacao",
+   "total": 2,
+   "preco": 123.2,
+   "link": "https://www.mercadolivre.com.br/kit-200-sacos-para-congelar-leite-materno-200ml/up/MLBU3949536260?pdp_filters=item_id:MLB6719994924",
+   "descricao": "",
+   "foto": "",
+   "ordem": 71
+  }
+ ]
 }
