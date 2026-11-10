@@ -136,6 +136,16 @@ para olhar e somar, não para subir de volta: a planilha que sobe é a sua.
 A categoria de cada presente vem do nome da aba da planilha. Para mudar um item de
 categoria, mude de aba na planilha e suba de novo, ou use o botão **Editar**.
 
+### Pix de outro valor
+
+No fim da lista de presentes existe o cartão **Prefere mandar outro valor?**. A
+pessoa digita quanto quer mandar (de R$ 1,00 a R$ 10.000,00) e o site mostra o
+QR code e o código Pix com esse valor.
+
+Esses Pix **não aparecem no painel**, porque não passam pelo banco de dados do site.
+Para saber quem mandou e quanto, olhe o extrato do seu banco: o Pix mostra o nome de
+quem pagou.
+
 ### Escolhas "vai levar o presente"
 
 Na aba **Presentes e Pix**, as escolhas de itens sem preço aparecem com o selo

@@ -30,6 +30,9 @@
         precisa carregar nada até a festa. Os links são só para você ver
         o que é cada item.
       </p>
+      <p class="presente-descricao" style="margin-bottom:0">
+        Prefere mandar outro valor? <a href="#outro-valor">Use o espaço no fim da página.</a>
+      </p>
     </div>
 
     <p class="aviso ok" id="aviso-demonstracao" hidden>
@@ -40,6 +43,35 @@
 
     <div id="lista-presentes">
       <p class="carregando">Carregando a lista...</p>
+    </div>
+
+    <div class="cartao" id="outro-valor">
+      <h2>Prefere mandar outro valor?</h2>
+      <p>
+        Se quiser ajudar com um valor que não está na lista, digite quanto
+        e o site mostra o QR code do Pix já com esse valor.
+      </p>
+      <p class="aviso erro" id="aviso-valor" role="alert" hidden></p>
+      <form id="form-valor">
+        <div class="campo">
+          <label for="valor-livre">Valor (R$)</label>
+          <input type="text" id="valor-livre" name="valor" inputmode="decimal"
+                 autocomplete="off" placeholder="50,00" required>
+          <span class="ajuda">De R$ 1,00 até R$ 10.000,00.</span>
+        </div>
+        <button type="submit" class="botao">Gerar Pix</button>
+      </form>
+      <div id="resultado-valor" hidden>
+        <p class="pix-valor" id="valor-escolhido"></p>
+        <div class="pix-qr" id="qr-valor"></div>
+        <p class="rotulo-codigo">Ou copie o código Pix:</p>
+        <p class="pix-codigo" id="codigo-valor"></p>
+        <button type="button" class="botao" id="copiar-valor">Copiar código Pix</button>
+        <p class="presente-descricao pix-ajuda">
+          Abra o aplicativo do seu banco, escolha Pix, aponte para o QR code
+          ou cole o código. O valor já vai preenchido. Obrigada pelo carinho! 💛
+        </p>
+      </div>
     </div>
 
     <div class="cartao" id="bloco-desfazer" hidden>

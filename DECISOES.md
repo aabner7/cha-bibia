@@ -104,4 +104,7 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 69 | Na lista dos convidados, as categorias viraram botões (abas) no topo e só a categoria escolhida aparece de cada vez | Com 67 itens, a rolagem única ficava longa; assim o convidado vai direto ao que procura, e as categorias seguem a ordem das abas da planilha. |
 | 70 | A aba escolhida é mantida quando o convidado escolhe ou desfaz um presente | Senão a lista voltaria para a primeira categoria a cada ação. |
 | 71 | No painel, a lista de presentes passou a ter um título por categoria, com a contagem de itens | Fica fácil achar um item e conferir quantos há em cada aba. |
+| 72 | Cartão "Prefere mandar outro valor?" no fim da lista, com um aviso no cartão de abertura que leva até ele | Quem quer ajudar com um valor que não está na lista tem para onde ir, sem poluir a lista de presentes. |
+| 73 | O valor livre não é guardado no banco: o código Pix é montado no celular de quem digita | Não precisa de regra nova no banco nem de publicar nada além do site; o Pix cai na conta como qualquer outro. |
+| 74 | Valor livre aceito de R$ 1,00 a R$ 10.000,00, escrito do jeito que a pessoa preferir (`50`, `50,5`, `R$ 1.250,00`) | Evita valores sem sentido e erros de digitação sem exigir um formato rígido. |
 

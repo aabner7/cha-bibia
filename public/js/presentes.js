@@ -505,6 +505,72 @@
   }
 
   /* ---------------------------------------------------------
+     OUTRO VALOR: Pix de um valor que não está na lista
+     ---------------------------------------------------------
+     Nada é guardado no banco: o convidado digita o valor, o
+     código Pix é montado aqui mesmo e o dinheiro cai na sua
+     conta como qualquer Pix. Para saber quem mandou, olhe o
+     extrato do banco.
+     --------------------------------------------------------- */
+  var formValor      = document.getElementById('form-valor');
+  var avisoValor     = document.getElementById('aviso-valor');
+  var resultadoValor = document.getElementById('resultado-valor');
+
+  /* "50", "50,5", "1.250,00" ou "R$ 50" viram números; o que não der, vira 0 */
+  function lerValorDigitado(texto) {
+    var limpo = String(texto || '').replace(/[^0-9,.]/g, '');
+    if (limpo.indexOf(',') !== -1) limpo = limpo.replace(/\./g, '').replace(',', '.');
+    var n = parseFloat(limpo);
+    return isFinite(n) ? Math.round(n * 100) / 100 : 0;
+  }
+
+  formValor.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    avisoValor.hidden = true;
+    resultadoValor.hidden = true;
+
+    var valor = lerValorDigitado(formValor.valor.value);
+    if (valor < 1 || valor > 10000) {
+      avisoValor.textContent = 'Digite um valor entre R$ 1,00 e R$ 10.000,00.';
+      avisoValor.hidden = false;
+      return;
+    }
+
+    var cobranca = window.gerarCodigoPix(valor);
+    document.getElementById('valor-escolhido').textContent = window.formatarReais(valor);
+    document.getElementById('codigo-valor').textContent = cobranca || '';
+
+    var area = document.getElementById('qr-valor');
+    area.innerHTML = '';
+    var qr = window.desenharQrPix(cobranca, 220);
+    if (qr) {
+      qr.setAttribute('role', 'img');
+      qr.setAttribute('aria-label', 'QR code do Pix no valor de ' + window.formatarReais(valor));
+      area.appendChild(qr);
+    }
+
+    resultadoValor.hidden = false;
+    resultadoValor.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+
+  document.getElementById('copiar-valor').addEventListener('click', async function () {
+    var botao = this;
+    var texto = document.getElementById('codigo-valor').textContent;
+    try {
+      await navigator.clipboard.writeText(texto);
+    } catch (e) {
+      // Navegador que não deixa copiar sozinho: seleciona para a pessoa copiar.
+      var faixa = document.createRange();
+      faixa.selectNodeContents(document.getElementById('codigo-valor'));
+      var selecao = window.getSelection();
+      selecao.removeAllRanges();
+      selecao.addRange(faixa);
+    }
+    botao.textContent = 'Código copiado ✓';
+    setTimeout(function () { botao.textContent = 'Copiar código Pix'; }, 2500);
+  });
+
+  /* ---------------------------------------------------------
      DESFAZER COM O CÓDIGO
      --------------------------------------------------------- */
   function atualizarBlocoDesfazer() {
