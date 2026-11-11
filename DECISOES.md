@@ -112,4 +112,8 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 77 | O campo de quantidade não aparece nos itens por Pix nem quando só resta 1 unidade | Evita pergunta desnecessária: Pix é uma escolha por vez e, com 1 unidade, só pode ser 1. |
 | 78 | A escolha guarda a quantidade (`quantidade`); escolhas antigas, sem o campo, valem 1 | Ao desfazer ou liberar, o estoque volta com a quantidade certa. |
 | 79 | Regra do estoque no banco passou de "exatamente 1 unidade" para "qualquer mudança dentro de 0 até o total" | Sem isso o banco recusaria tirar 4 calças de uma vez. O limite de 0 até o total e a proteção do preço continuam; é um pouco mais frouxa, e você corrige qualquer exagero com os botões − e + do painel. |
+| 80 | Texto do convite atualizado ("e que já amam muito a Bibia" e "junto da gente!!") | Pedido da família. |
+| 81 | Prazo de confirmação passou para 21 de novembro (antes: 1º de dezembro; ver decisão 8) | Pedido da família. |
+| 82 | O formulário de confirmação não pergunta mais quantas pessoas vão; cada confirmação vale 1 pessoa | O convite é nominal, não livre: só o nome de quem confirma. |
+| 83 | O site continua gravando `pessoas: 1` em cada confirmação | Assim as regras do banco não mudam (não precisa publicá-las de novo) e o total do painel continua somando certo, inclusive com as confirmações antigas. |
 

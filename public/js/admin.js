@@ -163,7 +163,7 @@
     });
     // Dois exemplos para a tela não ficar vazia
     estado.confirmacoes = [
-      { id: 'd1', nome: 'Ana Souza',      pessoas: 2, telefone: '(31) 99999-1234', criadoEm: new Date() },
+      { id: 'd1', nome: 'Ana Souza',      pessoas: 1, telefone: '(31) 99999-1234', criadoEm: new Date() },
       { id: 'd2', nome: 'Carla Medeiros', pessoas: 1, telefone: '',                criadoEm: new Date() },
     ];
     var ontem = new Date(Date.now() - 30 * 60 * 60 * 1000); // 30 horas atrás
@@ -205,7 +205,7 @@
 
   function desenharResumo() {
     var pessoas = estado.confirmacoes.reduce(function (soma, c) {
-      return soma + (c.pessoas || 0);
+      return soma + (c.pessoas || 1);
     }, 0);
     var reservados = estado.presentes.reduce(function (soma, p) {
       return soma + (p.total - p.disponivel);
@@ -560,8 +560,11 @@
       linha.querySelector('.linha-nome').textContent = c.nome;
       linha.querySelector('.linha-meta').textContent =
         [c.telefone, formatarData(c.criadoEm)].filter(Boolean).join(' · ');
-      linha.querySelector('.selo-pessoas').textContent =
-        c.pessoas + (c.pessoas === 1 ? ' pessoa' : ' pessoas');
+      // Cada confirmação vale 1 pessoa; só mostramos o número nas antigas
+      // que foram feitas quando o formulário ainda perguntava quantos vinham.
+      var selo = linha.querySelector('.selo-pessoas');
+      if (c.pessoas > 1) selo.textContent = c.pessoas + ' pessoas';
+      else selo.remove();
 
       alvo.appendChild(linha);
     });
@@ -762,7 +765,7 @@
       });
       linhas.push([]);
       linhas.push(['TOTAL DE PESSOAS', estado.confirmacoes.reduce(function (s, c) {
-        return s + (c.pessoas || 0);
+        return s + (c.pessoas || 1);
       }, 0)]);
 
     } else if (qual === 'presentes') {
