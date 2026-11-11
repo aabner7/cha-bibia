@@ -631,7 +631,8 @@
       '<div class="linha-estoque"><span class="selo-status"></span></div>' +
       '<div class="linha-botoes"></div>';
 
-    linha.querySelector('.linha-nome').textContent = r.presenteNome;
+    linha.querySelector('.linha-nome').textContent =
+      r.presenteNome + (r.quantidade > 1 ? ' (' + r.quantidade + 'x)' : '');
     linha.querySelector('.linha-meta').textContent = [
       r.nome,
       levar ? null : window.formatarReais(r.valor || 0),
@@ -714,13 +715,13 @@
       var fs = estado.conexao.fs;
       await fs.updateDoc(fs.doc(estado.conexao.banco, 'reservas', r.id), { ativa: false });
       if (presente) {
-        var devolvido = Math.min(presente.disponivel + 1, presente.total);
+        var devolvido = Math.min(presente.disponivel + (r.quantidade || 1), presente.total);
         await fs.updateDoc(fs.doc(estado.conexao.banco, 'presentes', presente.id), {
           disponivel: devolvido,
         });
       }
     }
-    if (presente) presente.disponivel = Math.min(presente.disponivel + 1, presente.total);
+    if (presente) presente.disponivel = Math.min(presente.disponivel + (r.quantidade || 1), presente.total);
     estado.reservas = estado.reservas.filter(function (x) { return x.id !== r.id; });
     desenharTudo();
   }
@@ -776,11 +777,11 @@
 
     } else {
       nomeArquivo = 'presentes-recebidos-cha-da-bibia.csv';
-      linhas = [['Presente', 'Quem presenteou', 'Valor', 'Situação',
+      linhas = [['Presente', 'Quantidade', 'Quem presenteou', 'Valor', 'Situação',
                  'Recado', 'Código', 'Escolhido em']];
       estado.reservas.forEach(function (r) {
         linhas.push([
-          r.presenteNome, r.nome, semPix(r) ? '' : numeroBR(r.valor),
+          r.presenteNome, r.quantidade || 1, r.nome, semPix(r) ? '' : numeroBR(r.valor),
           semPix(r) ? 'Vai levar o presente'
             : r.status === 'recebido' ? 'Recebido'
             : (r.avisouPix ? 'Avisou que pagou' : 'Aguardando Pix'),
@@ -788,10 +789,10 @@
         ]);
       });
       linhas.push([]);
-      linhas.push(['TOTAL RECEBIDO', '', numeroBR(estado.reservas.reduce(function (t, r) {
+      linhas.push(['TOTAL RECEBIDO', '', '', numeroBR(estado.reservas.reduce(function (t, r) {
         return t + (r.status === 'recebido' ? (r.valor || 0) : 0);
       }, 0))]);
-      linhas.push(['TOTAL AGUARDANDO', '', numeroBR(estado.reservas.reduce(function (t, r) {
+      linhas.push(['TOTAL AGUARDANDO', '', '', numeroBR(estado.reservas.reduce(function (t, r) {
         return t + (r.status !== 'recebido' ? (r.valor || 0) : 0);
       }, 0))]);
     }

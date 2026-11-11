@@ -9,8 +9,9 @@ rules_version = '2';
 //
 // Em resumo:
 //   - Presentes: todos veem; só você cria, edita e apaga.
-//   - Estoque: o visitante pode tirar 1 ao escolher, ou devolver
-//     1 ao desfazer. Nada além disso. O PREÇO só você muda.
+//   - Estoque: o visitante pode tirar unidades ao escolher (uma ou
+//     mais, no caso das roupinhas) ou devolvê-las ao desfazer, sempre
+//     dentro de 0 até o total. O PREÇO só você muda.
 //   - Confirmações: qualquer um envia a sua; só você lê a lista.
 //   - Reservas: só você vê a lista inteira. O convidado só
 //     alcança a dele, e apenas se souber o código exato.
@@ -48,21 +49,19 @@ service cloud.firestore {
                  .affectedKeys().hasOnly(['disponivel']);
       }
 
-      // O visitante pode mexer no estoque em exatamente 1 unidade,
-      // para baixo (marcou) ou para cima (desfez), sempre dentro
-      // dos limites de 0 até o total cadastrado.
-      function mexeuUmaUnidade() {
+      // O visitante pode mexer no estoque (para baixo ao escolher, para
+      // cima ao desfazer), sempre dentro dos limites de 0 até o total
+      // cadastrado. Pode ser mais de uma unidade: quem leva 4 calças
+      // tira 4 de uma vez.
+      function mexeuNoEstoque() {
         return soMudouEstoque()
             && request.resource.data.disponivel is int
             && request.resource.data.disponivel >= 0
             && request.resource.data.disponivel <= resource.data.total
-            && (
-                 request.resource.data.disponivel == resource.data.disponivel - 1 ||
-                 request.resource.data.disponivel == resource.data.disponivel + 1
-               );
+            && request.resource.data.disponivel != resource.data.disponivel;
       }
 
-      allow update: if ehAdmin() || mexeuUmaUnidade();
+      allow update: if ehAdmin() || mexeuNoEstoque();
     }
 
     // ---------- Reservas (quem vai levar o quê) ----------
@@ -79,11 +78,15 @@ service cloud.firestore {
 
       allow create: if request.resource.data.keys().hasOnly(
                          ['presenteId', 'presenteNome', 'nome', 'recado',
-                          'valor', 'status', 'avisouPix', 'ativa', 'criadoEm'])
+                          'valor', 'status', 'avisouPix', 'ativa', 'criadoEm',
+                          'quantidade'])
                     && texto(request.resource.data.presenteId, 1, 100)
                     && texto(request.resource.data.presenteNome, 1, 150)
                     && texto(request.resource.data.nome, 3, 80)
                     && texto(request.resource.data.recado, 0, 200)
+                    && request.resource.data.quantidade is int
+                    && request.resource.data.quantidade >= 1
+                    && request.resource.data.quantidade <= 99
                     && request.resource.data.valor is number
                     && request.resource.data.valor >= 0
                     && request.resource.data.valor <= 99999

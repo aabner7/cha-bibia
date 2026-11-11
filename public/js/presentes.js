@@ -271,6 +271,8 @@
     var form = document.createElement('form');
     form.className = 'form-marcar';
     var comPix = p.preco > 0;
+    // Só nos itens sem Pix (roupinhas) e só quando há mais de um para levar.
+    var pedeQuantidade = !comPix && p.disponivel > 1;
     form.innerHTML =
       '<p class="aviso erro" hidden></p>' +
       (comPix ? '' :
@@ -280,6 +282,13 @@
         '<label>Seu nome</label>' +
         '<input type="text" name="nome" maxlength="80" autocomplete="name" required>' +
       '</div>' +
+      (pedeQuantidade ?
+        '<div class="campo">' +
+          '<label>Quantas unidades você vai levar?</label>' +
+          '<input type="number" name="quantidade" min="1" max="' + p.disponivel + '" ' +
+                 'value="1" inputmode="numeric" required>' +
+          '<span class="ajuda">Ainda faltam ' + p.disponivel + '.</span>' +
+        '</div>' : '') +
       '<div class="campo">' +
         '<label>Recado <span class="opcional">(opcional)</span></label>' +
         '<textarea name="recado" rows="2" maxlength="200"></textarea>' +
@@ -313,14 +322,24 @@
         return;
       }
 
+      var quantidade = 1;
+      if (pedeQuantidade) {
+        quantidade = parseInt(form.quantidade.value, 10);
+        if (!(quantidade >= 1 && quantidade <= p.disponivel)) {
+          aviso.textContent = 'Escolha uma quantidade entre 1 e ' + p.disponivel + '.';
+          aviso.hidden = false;
+          return;
+        }
+      }
+
       var enviar = form.querySelector('button[type="submit"]');
       enviar.disabled = true;
       enviar.textContent = 'Guardando...';
 
       try {
-        var codigo = await reservar(p, nome, recado);
+        var codigo = await reservar(p, nome, recado, quantidade);
         if (comPix) mostrarPix(p, caixa, codigo);
-        else mostrarSucesso(p, caixa, codigo, true);
+        else mostrarSucesso(p, caixa, codigo, true, quantidade);
       } catch (erro) {
         enviar.disabled = false;
         enviar.textContent = comPix ? 'Continuar para o Pix' : 'Confirmar que vou levar';
@@ -337,19 +356,21 @@
   /* ---------------------------------------------------------
      A TRANSAÇÃO: tirar 1 do estoque com segurança
      --------------------------------------------------------- */
-  async function reservar(p, nome, recado) {
+  async function reservar(p, nome, recado, quantidade) {
     var codigo = gerarCodigo();
+    quantidade = quantidade || 1;
 
     if (!conexao) {
       // Modo demonstração: mexe só na memória da página.
       await new Promise(function (r) { setTimeout(r, 500); });
-      if (p.disponivel <= 0) {
-        var e = new Error('Alguém acabou de pegar este item.');
+      if (p.disponivel < quantidade) {
+        var e = new Error(p.disponivel <= 0 ? 'Alguém acabou de pegar este item.'
+                                            : 'Só restam ' + p.disponivel + ' deste item.');
         e.recarregar = true;
         throw e;
       }
-      p.disponivel -= 1;
-      guardarCodigo({ codigo: codigo, presenteId: p.id, presenteNome: p.nome });
+      p.disponivel -= quantidade;
+      guardarCodigo({ codigo: codigo, presenteId: p.id, presenteNome: p.nome, quantidade: quantidade });
       return codigo;
     }
 
@@ -365,20 +386,24 @@
       }
 
       var disponivel = atual.data().disponivel;
-      if (disponivel <= 0) {
-        var e = new Error('Alguém acabou de pegar este item. Atualizando a lista...');
+      if (disponivel < quantidade) {
+        var e = new Error(disponivel <= 0
+          ? 'Alguém acabou de pegar este item. Atualizando a lista...'
+          : 'Só restam ' + disponivel + ' deste item. Atualizando a lista...');
         e.recarregar = true;
         throw e;
       }
 
       // Os dois passos abaixo acontecem juntos ou não acontecem.
-      transacao.update(refPresente, { disponivel: disponivel - 1 });
+      transacao.update(refPresente, { disponivel: disponivel - quantidade });
       transacao.set(refReserva, {
         presenteId:   p.id,
         presenteNome: p.nome,
         nome:         nome,
         recado:       recado,
         valor:        Number(p.preco) || 0,
+        // Quantas unidades a pessoa vai levar (1, a não ser nas roupinhas).
+        quantidade:   quantidade,
         // 'aguardando' = esperando o Pix cair na conta.
         // Só a administradora muda isso para 'recebido'.
         status:       'aguardando',
@@ -390,8 +415,8 @@
       });
     });
 
-    p.disponivel -= 1;
-    guardarCodigo({ codigo: codigo, presenteId: p.id, presenteNome: p.nome });
+    p.disponivel -= quantidade;
+    guardarCodigo({ codigo: codigo, presenteId: p.id, presenteNome: p.nome, quantidade: quantidade });
     return codigo;
   }
 
@@ -480,14 +505,15 @@
   /* ---------------------------------------------------------
      TELA FINAL, COM O CÓDIGO DE DESFAZER
      --------------------------------------------------------- */
-  function mostrarSucesso(p, caixa, codigo, semPix) {
+  function mostrarSucesso(p, caixa, codigo, semPix, quantidade) {
     var novo = document.createElement('article');
     novo.className = 'presente reservado';
     novo.innerHTML =
       '<div class="presente-corpo largura-total">' +
         '<h3>Obrigada! 💛</h3>' +
         (semPix
-          ? '<p>Anotamos que você vai levar: <strong></strong>.</p>' +
+          ? '<p>Anotamos que você vai levar ' + (quantidade > 1 ? quantidade + 'x ' : '') +
+            '<strong></strong>.</p>' +
             '<p class="presente-descricao">Você mesmo compra e leva no chá. ' +
             'Não precisa pagar nada por aqui.</p>'
           : '<p>Anotamos o seu presente: <strong></strong>.</p>') +
@@ -615,7 +641,7 @@
       var registro = meus.find(function (r) { return r.codigo === codigo; });
       if (!registro) throw new Error('Não encontrei esse código. Confira as letras.');
       var p = presentes.find(function (x) { return x.id === registro.presenteId; });
-      if (p) p.disponivel += 1;
+      if (p) p.disponivel = Math.min(p.disponivel + (registro.quantidade || 1), p.total);
       esquecerCodigo(codigo);
       return;
     }
@@ -634,7 +660,8 @@
       var presente = await transacao.get(refPresente);
 
       if (presente.exists()) {
-        var devolvido = Math.min(presente.data().disponivel + 1, presente.data().total);
+        var devolvido = Math.min(presente.data().disponivel + (reserva.data().quantidade || 1),
+                                 presente.data().total);
         transacao.update(refPresente, { disponivel: devolvido });
       }
       transacao.update(refReserva, { ativa: false });
