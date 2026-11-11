@@ -558,7 +558,6 @@ a:hover { color: var(--cor-destaque-escuro); }
 /* Texto de abertura da lista: parágrafos curtos, com respiro entre eles */
 .texto-abertura p { margin-bottom: var(--espaco-pequeno); }
 .texto-abertura p:last-child { margin-bottom: 0; }
-.texto-abertura .fecho { text-align: center; font-weight: 700; }
 
 /* Abas de categoria na lista dos convidados: quebram em várias linhas,
    para todas as categorias aparecerem sem precisar rolar de lado. */
