@@ -107,4 +107,9 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 72 | Cartão "Prefere mandar outro valor?" no fim da lista, com um aviso no cartão de abertura que leva até ele | Quem quer ajudar com um valor que não está na lista tem para onde ir, sem poluir a lista de presentes. |
 | 73 | O valor livre não é guardado no banco: o código Pix é montado no celular de quem digita | Não precisa de regra nova no banco nem de publicar nada além do site; o Pix cai na conta como qualquer outro. |
 | 74 | Valor livre aceito de R$ 1,00 a R$ 10.000,00, escrito do jeito que a pessoa preferir (`50`, `50,5`, `R$ 1.250,00`) | Evita valores sem sentido e erros de digitação sem exigir um formato rígido. |
+| 75 | Texto de abertura da lista de presentes trocado pelo texto escrito pela família, palavra por palavra | Pedido da família. |
+| 76 | Nos itens sem Pix (roupinhas) o convidado informa a quantidade que vai levar, de 1 até o que ainda falta | O texto promete "se forem 04 calças, marcar que irá levar 4x"; sem isso o site contabilizaria 1 só. |
+| 77 | O campo de quantidade não aparece nos itens por Pix nem quando só resta 1 unidade | Evita pergunta desnecessária: Pix é uma escolha por vez e, com 1 unidade, só pode ser 1. |
+| 78 | A escolha guarda a quantidade (`quantidade`); escolhas antigas, sem o campo, valem 1 | Ao desfazer ou liberar, o estoque volta com a quantidade certa. |
+| 79 | Regra do estoque no banco passou de "exatamente 1 unidade" para "qualquer mudança dentro de 0 até o total" | Sem isso o banco recusaria tirar 4 calças de uma vez. O limite de 0 até o total e a proteção do preço continuam; é um pouco mais frouxa, e você corrige qualquer exagero com os botões − e + do painel. |
 

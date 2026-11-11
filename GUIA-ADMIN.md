@@ -146,6 +146,20 @@ Esses Pix **não aparecem no painel**, porque não passam pelo banco de dados do
 Para saber quem mandou e quanto, olhe o extrato do seu banco: o Pix mostra o nome de
 quem pagou.
 
+### Quantidade nas roupinhas
+
+Nos itens sem preço que têm mais de uma unidade (como "Calça P", com 8), o
+convidado informa **quantas unidades vai levar** e o site tira essa quantidade do
+que falta. Quem leva 4 calças marca 4 de uma vez.
+
+Na aba **Presentes e Pix** a escolha aparece com a quantidade ao lado do nome
+(por exemplo, "Calça P (4x)"), e o arquivo baixado tem a coluna **Quantidade**.
+Se você tocar em **Liberar item**, as 4 unidades voltam para a lista.
+
+**Atenção ao publicar:** esta mudança mexe nas regras do banco. É preciso publicar
+o site **e** as regras juntos, com `firebase.cmd deploy --only hosting,firestore:rules`.
+Só o site, sem as regras, faz as escolhas darem erro.
+
 ### Escolhas "vai levar o presente"
 
 Na aba **Presentes e Pix**, as escolhas de itens sem preço aparecem com o selo
