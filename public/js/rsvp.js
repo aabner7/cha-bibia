@@ -31,9 +31,6 @@
     if (dados.nome.length > 80) {
       return 'Esse nome ficou longo demais. Pode encurtar?';
     }
-    if (!Number.isInteger(dados.pessoas) || dados.pessoas < 1 || dados.pessoas > 20) {
-      return 'Informe quantas pessoas vão, de 1 a 20.';
-    }
     if (dados.telefone) {
       var somenteNumeros = dados.telefone.replace(/\D/g, '');
       if (somenteNumeros.length < 10 || somenteNumeros.length > 13) {
@@ -57,7 +54,8 @@
 
     var dados = {
       nome:     limparEspacos(formulario.nome.value),
-      pessoas:  parseInt(formulario.pessoas.value, 10),
+      // O convite é nominal: cada confirmação vale uma pessoa.
+      pessoas:  1,
       telefone: limparEspacos(formulario.telefone.value),
     };
 

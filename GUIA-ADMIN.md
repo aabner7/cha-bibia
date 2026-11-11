@@ -23,7 +23,7 @@ O site lembra do seu login neste aparelho. Para sair de vez, toque em
 
 | Caixa | O que significa |
 |---|---|
-| Pessoas confirmadas | O total somado de gente que vem. É o número para calcular comida. |
+| Pessoas confirmadas | Quantas pessoas confirmaram. O convite é nominal: cada confirmação vale uma pessoa. É o número para calcular comida. |
 | Presentes escolhidos | Quantos itens já têm alguém, do total da lista. |
 | Recebido | A soma dos Pix que você já confirmou que caíram na conta. |
 | Aguardando Pix | A soma do que foi escolhido mas ainda não foi confirmado por você. |
@@ -32,8 +32,10 @@ O site lembra do seu login neste aparelho. Para sair de vez, toque em
 
 **Presentes** — a lista inteira, com o estoque de cada item.
 
-**Confirmações** — quem avisou que vem, com quantas pessoas e o telefone,
-se tiver preenchido.
+**Confirmações** — quem avisou que vem, com o telefone, se tiver preenchido.
+O formulário pede só o nome (e o telefone, que é opcional): ninguém informa
+quantas pessoas vêm junto. Confirmações antigas, feitas quando o formulário ainda
+perguntava isso, mostram o número que foi informado na época.
 
 **Presentes e Pix** — quem escolheu cada presente, o valor, o recado e a
 situação do pagamento.
