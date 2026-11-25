@@ -117,3 +117,4 @@ que você pediu — são escolhas de "como fazer", não de "o que fazer".
 | 82 | O formulário de confirmação não pergunta mais quantas pessoas vão; cada confirmação vale 1 pessoa | O convite é nominal, não livre: só o nome de quem confirma. |
 | 83 | O site continua gravando `pessoas: 1` em cada confirmação | Assim as regras do banco não mudam (não precisa publicá-las de novo) e o total do painel continua somando certo, inclusive com as confirmações antigas. |
 
+| 84 | Prazo de confirmação voltou para 1º de dezembro (antes: 21 de novembro; ver decisão 81) | Pedido da família. |
